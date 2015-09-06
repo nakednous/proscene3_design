@@ -35,16 +35,73 @@ H:
  
 H:
 
+## Goal: History
+
+* Proscene 1
+* Proscene 2
+
+V:
+
 ## Goal
 
 Provide interactivity to _application objects_ from any _input source_
 
+V:
+
+## Goal: Application objects
+
+Three main interaction tasks (see ['A Survey of Interaction Techniques for Interactive 3D Environments', Jankowski et al](https://hal.inria.fr/hal-00789413/)):
+
+<li class="fragment"> Navigation
+<li class="fragment"> Picking and manipulation
+<li class="fragment"> Application control
+
+V:
+
+## Goal: Application objects
+### 2D & 3D Navigation
+
+Basic camera types:
+
+<li class="fragment"> Orbit-like methods
+<li class="fragment"> First person
+<li class="fragment"> Third person
+
+V:
+
+## Goal: Application objects
+### Picking & Manipulation
+
+<li class="fragment"> Picking strategies: from input sources, programmatically
+<li class="fragment"> Manipulation: emulate 6 DOF's (Default behavior from multiple _input Sources_)
+
+V:
+
+## Goal: Application objects
+### Application control
+
+Custom behaviors from multiple _input Sources_
+
+V:
+
+## Goal: Input sources
+
+
+
 H:
+
+## Design: API considerations
+
+<li class="fragment"> Simplicity: Separate _application object_ behaviors from _input sources_
+<li class="fragment"> Flexibility: Simple default (common) behaviors vs challenging ones
+
+V:
 
 ## Design
 
-<li class="fragment"> _Application bjects_ -> *Grabbers*
+<li class="fragment"> _Application objects_ -> *Grabbers*
 <li class="fragment"> _Input source_ -> *Agents*
+<li class="fragment"> Common _event interface_ -> *BogusEvents*
 
 V:
 
