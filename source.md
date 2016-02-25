@@ -76,6 +76,40 @@ V:
 V:
 
 ## BIAS
+### BogusEvents
+
+V:
+
+## BIAS
+### BogusEvents
+
+_BogusEvents_ are of the following types:
+
+ * KeyboardEvent <!-- .element: class="fragment" data-fragment-index="1"-->
+ * ClickEvent <!-- .element: class="fragment" data-fragment-index="2"-->
+ * MotionEvent <!-- .element: class="fragment" data-fragment-index="3"-->
+   * DOF1Event
+   * DOF2Event
+   * DOF3Event
+   * DOF6Event
+   
+V:
+
+## BIAS
+### BogusEvents: Shortcuts
+
+
+
+V:
+
+## BIAS
+### BogusEvents: Multi-tempi
+
+
+
+V:
+
+## BIAS
 ### Grabbers
 
 ```java
@@ -93,71 +127,83 @@ public interface Grabber {
 	 */
 	void performInteraction(BogusEvent event);
 }
-
 ```
 
 V:
 
 ## BIAS
-### Action
+### Grabbers: example
 
 ```java
-public interface Action<E extends Enum<E>> {
-	/**
-	 * Returns group to global action item mappings.
-	 */
-	E referenceAction();
-
-	/**
-	 * Returns a description of the action.
-	 */
-	String description();
+public class CustomGrabberFrame implements Grabber {
+    @Override
+    boolean checkIfGrabsInput(BogusEvent event) {
+        return withinShapeProjectionArea(event);
+    }
+    
+    @Override
+    void performInteraction(BogusEvent event) {
+        if ( ( event.shortcut().id() == LEFT ) )
+          callback_method(event);
+    }
 }
 ```
 
 V:
 
 ## BIAS
-### Multiple tempi Actions
+### Grabbers: Profile
 
-Idea is quite simple
-
-Multiple tempi actions (such as press-drag-release with a mouse) may be identified from
-a Grabber by analysing its flow of actions respect to an initAction, as follows:
-
-V:
-
-## BIAS
-### Multiple tempi Actions
-
-| Cases | initAction | action() | Result                           |
-|-------|------------|----------|----------------------------------|
-| 1     | null       | non-null | start(action())                  |
-| 2     | non-null   | null     | stop(initAction)                 |
-| 3     | non-null   | non-null | exec(action())                   |
-| 4     | non-null   | non-null | stop(initAction); exec(action()) |
-| 5     | null       | null     | ignore                           |
-
-V:
-
-## BIAS
-### Multiple tempi Actions
-
-* (2) Requires the ```null``` action to be enqueued from the agent (with its new ```flush()``` method)
-* (3) ```initAction==action()```, i.e., continous execution
-* (4) ```initAction!=action()```, i.e., action changes abruptly
-
-V:
-
-## BIAS
-### InteractiveGrabbers
+A [functional programming](https://en.wikipedia.org/wiki/Functional_programming) extension which parses the event in
+```grabber.performInteraction(BogusEvent event)```
+to define _Shortcut_ to _Method_ bindings. To set it up just override
+the _grabber_ ```performInteraction``` method like this:
 
 ```java
-public interface InteractiveGrabber<E extends Enum<E>> extends Grabber {
-	public void setAction(Action<E> action);
-	public Action<E> action();
+@Override
+public void performInteraction(BogusEvent event) {
+    profile.handle(event);
 }
+```
+<!-- .element: class="fragment" data-fragment-index="1"-->
 
+V:
+
+## BIAS
+### Grabbers: Profile
+
+Profiles allow the following simple dialect:
+
+```java
+grabber.setMotionBinding(LEFT, "callback_method");
+```
+<!-- .element: class="fragment" data-fragment-index="1"-->
+
+```java
+grabber.setKeyBinding('x', "callback_method");
+```
+<!-- .element: class="fragment" data-fragment-index="2"-->
+
+```java
+grabber.setKeyBinding(SHIFT, 'y', "callback_method");
+```
+<!-- .element: class="fragment" data-fragment-index="3"-->
+
+```java
+grabber.setClickBinding(RIGHT, '2', "callback_method");
+```
+<!-- .element: class="fragment" data-fragment-index="4"-->
+
+V:
+
+## BIAS
+### Grabbers: Profile
+
+
+```java
+public void performInteraction(BogusEvent event) {
+    profile.handle(event);
+}
 ```
 
 V:
@@ -169,22 +215,6 @@ Collect and reduce input into a _BogusEvent_ in order to:
 
 <li class="fragment"> Update the _Grabber_ (```agent.inputGrabber()```)
 <li class="fragment"> Perform an interaction on the ```agent.inputGrabber()```
-
-V:
-
-## BIAS
-### Agents
-
-_BogusEvents_ are of the following types:
-
- * KeyboardEvent <!-- .element: class="fragment" data-fragment-index="1"-->
- * ClickEvent <!-- .element: class="fragment" data-fragment-index="2"-->
- * MotionEvent <!-- .element: class="fragment" data-fragment-index="3"-->
-   * DOF1Event
-   * DOF2Event
-   * DOF3Event
-   * DOF6Event
-
 
 V:
 
@@ -207,21 +237,38 @@ V:
 Perform an interaction on the ```inputGrabber()```
 
 ```java
-protected <E extends Enum<E>> boolean handle(BogusEvent event)
+protected boolean handle(BogusEvent event)
 ```
-
-Two cases arise:
-<li class="fragment"> ```!(inputGrabber() instanceof InteractiveGrabber)``` -> agent send the _bogusEvent_ (to the _Grabber_)
-<li class="fragment"> ```else```  -> agent send the _bogusEvent_ *and* attach an _action_ (to the _InteractiveGrabber_) using a _Branch_
 
 V:
 
 ## BIAS
-### Agent branches
+### Agents: a KeyAgent example
 
-<li class="fragment"> An agent _branch_ is a collection of _Profiles_ (why NOT a single one?)
-<li class="fragment"> A _profile_ is a (_bogusEvent_) _shortcut_ _action_ mapping, i.e., ```public class Profile<K extends Shortcut, A extends Action<?>> implements Copyable```
-<li class="fragment"> A _shortcut_ is a _bogusEvent_ mean for invoking an _action_
+```java
+protected KeyboardEvent currentEvent;
+
+public void keyEvent(processing.event.KeyEvent e) {
+    press = e.getAction() == processing.event.KeyEvent.PRESS;
+    release = e.getAction() == processing.event.KeyEvent.RELEASE;
+    
+    // event reduction Processing -> BogusEvent
+    currentEvent = new KeyboardEvent(e.getModifiers(), e.getKey());
+    if (press)
+      // update only on press
+      updateTrackedGrabber(currentEvent);
+
+    // always handle
+    handle(release ? currentEvent.flush() : currentEvent.fire());
+  }
+```
+
+V:
+
+## BIAS
+### InputHandler
+
+
 
 H:
 
