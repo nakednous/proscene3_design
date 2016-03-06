@@ -31,88 +31,11 @@ H:
  3. BIAS<!-- .element: class="fragment" data-fragment-index="3"-->
  4. Dandelion<!-- .element: class="fragment" data-fragment-index="4"-->
  5. Proscene3<!-- .element: class="fragment" data-fragment-index="5"-->
+ 6. Roadmap<!-- .element: class="fragment" data-fragment-index="6"-->
  
 H:
 
-## Goal: History
-
-<li class="fragment"> Proscene 1 (processing 1 cycle)
-<li class="fragment"> Proscene 2 (processing 2 cycle)
-<li class="fragment"> Proscene 3...
-
-V:
-
 ## Goal
-
-Provide interactivity to application objects from any input source
-
-in the 'simplest' possible way <!-- .element: class="fragment" data-fragment-index="1"-->
-
-V:
-
-## Goal: Main interaction tasks
-
-Three main interaction tasks (see ['A Survey of Interaction Techniques for Interactive 3D Environments', Jankowski et al](https://hal.inria.fr/hal-00789413/)):
-
-<li class="fragment"> Navigation
-<li class="fragment"> Picking and manipulation
-<li class="fragment"> Application control
-
-V:
-
-## Goal: Main interaction tasks
-### 1. 2D & 3D Navigation
-
-Basic camera types:
-
-<li class="fragment"> Orbit-like methods
-<li class="fragment"> First person
-<li class="fragment"> Third person
-
-V:
-
-## Goal: Main interaction tasks
-### 2. Picking & Manipulation
-
-<li class="fragment"> Picking strategies: from input sources, programmatically
-<li class="fragment"> Manipulation: emulate 6 DOF's (Default behavior from multiple _input Sources_)
-
-V:
-
-## Goal: Main interaction tasks
-### 3. Application control (custom behaviors)
-
-Post-WIMP interaction styles
-<li class="fragment"> Interfaces ???containing at least one interaction technique
-not dependent on classical 2D widgets??? [[van Dam]](http://dl.acm.org/citation.cfm?id=253708), such as:
-<li class="fragment"> Virtual, mixed and augmented reality
-<li class="fragment"> [Tangible interaction](https://en.wikipedia.org/wiki/Tangible_user_interface), ubiquitous and pervasive computing, context-aware computing
-<li class="fragment"> Handheld, or mobile interaction
-<li class="fragment"> Perceptual and [affective computing](https://en.wikipedia.org/wiki/Affective_computing)
-  
-N:
-
-WIMP: "window, icon, menu, pointing device"
-classical 2D widgets:  menus and icons
-
-V:
-
-## Goal
-
-Provide _interactivity_ to _application objects_ from any _input source_
-
-V:
-
-## Goal
-### Interactivitiy
-
-* Default: navigation and picking & manipulation
-* Custom
-
-V:
-
-## Goal
-### Application Objects
 
 > Provide interactivity to _application objects_ from any _gesture input source_
 
@@ -132,19 +55,6 @@ Universal interaction tasks:
 
 For a relatively recent survey please refer to: "A Survey of Interaction Techniques for Interactive 3D Environments", Jankowski et al., 2013 - STAR.
 <!-- .element: class="fragment" data-fragment-index="4"-->
-=======
-## Design: API considerations
-
-<li class="fragment"> Simplicity: Separate _application object_ behaviors from _input sources_
-<li class="fragment"> Flexibility: Simple default (common) behaviors vs challenging ones
-
-V:
-
-## Design
-
-<li class="fragment"> _Application objects_ -> *Grabbers*
-<li class="fragment"> _Input source_ -> *Agents*
-<li class="fragment"> Common _event interface_ -> *BogusEvents*
 
 V:
 
@@ -190,7 +100,6 @@ V:
 
 V:
 
-<<<<<<< HEAD
 ## Bias: User gestures
 
 <figure>
@@ -210,39 +119,6 @@ V:
 V:
 
 ## BIAS: Grabbers
-=======
-## BIAS
-### Bogus events
-
-Message _interface_ between input sources and application objects
-
-V:
-
-## BIAS
-### Bogus events: Types
-
- * KeyboardEvent <!-- .element: class="fragment" data-fragment-index="1"-->
- * ClickEvent <!-- .element: class="fragment" data-fragment-index="2"-->
- * MotionEvent <!-- .element: class="fragment" data-fragment-index="3"-->
-   * DOF1Event
-   * DOF2Event
-   * DOF3Event
-   * DOF6Event
-
-V:
-
-## BIAS
-### Bogus events: properties
-
-<li class="fragment"> Every _bogus event_ encapsulates a ```Shortcut```
-<li class="fragment"> A ```flushed()``` event encapsulates a gesture termination message
-<li class="fragment"> Motion events are ```relative``` or ```absolute``` and they have ```speed``` and ```delay```
-<li class="fragment"> Bogus events are _extensible_
-
-V:
-
-## BIAS
-### Grabbers
 
 ```java
 public interface Grabber {
@@ -263,7 +139,6 @@ public interface Grabber {
 
 V:
 
-<<<<<<< HEAD
 ## Bias: BogusEvents
 
 <figure>
@@ -280,22 +155,8 @@ V:
 
 Example: The mouse button + modifier mask when a dragging gesture is taking place
 <!-- .element: class="fragment" data-fragment-index="1"-->
-=======
-## BIAS
-### Agents
-
-Collect and reduce input into a _BogusEvent_ in order to:
-
-<li class="fragment"> Update the _Grabber_ (```agent.inputGrabber()```)
-<li class="fragment"> Perform an interaction on the ```agent.inputGrabber()```
 
 V:
-
-## BIAS
-### Agents
-
-
-Update the _Grabber_
 
 ## BIAS: BogusEvent
 ### MultiTempi
@@ -331,27 +192,6 @@ V:
     <img height='420' src='fig/arch_1a.png' />
     <figcaption>Collect and reduce input into a _BogusEvent_</figcaption>
 </figure>
-=======
-```java
-protected Grabber updateTrackedGrabber(BogusEvent event)
-```
-
-The ```inputGrabber()``` may be set with ```agent.setDefaultGrabber(Grabber grabber)```
-
-V:
-
-## BIAS
-### Agents
-
-Perform an interaction on the ```inputGrabber()```
-
-```java
-protected <E extends Enum<E>> boolean handle(BogusEvent event)
-```
-
-Two cases arise:
-<li class="fragment"> ```!(inputGrabber() instanceof InteractiveGrabber)``` -> agent send the _bogusEvent_ (to the _Grabber_)
-<li class="fragment"> ```else```  -> agent send the _bogusEvent_ *and* attach an _action_ (to the _InteractiveGrabber_) using a _Branch_. See _Agent branches_
 
 V:
 
@@ -413,30 +253,6 @@ public class GrabberObject implements Grabber {
         if ( ( event.shortcut().id() == LEFT ) )
           callback_method(event);
     }
-=======
-## BIAS
-### Agent branches
-
-<li class="fragment"> An agent _branch_ is a collection of _Profiles_ (why NOT a single one?)
-<li class="fragment"> A _profile_ is a (_bogusEvent_) _shortcut_ _action_ mapping, i.e., ```public class Profile<K extends Shortcut, A extends Action<?>> implements Copyable```
-<li class="fragment"> A _shortcut_ is a _bogusEvent_ mean for invoking an _action_
-
-V:
-
-## BIAS
-### Agent branches: Action
-
-```java
-public interface Action<E extends Enum<E>> {
-	/**
-	 * Returns group to global action item mappings.
-	 */
-	E referenceAction();
-
-	/**
-	 * Returns a description of the action.
-	 */
-	String description();
 }
 ```
 
@@ -456,22 +272,10 @@ public void performInteraction(BogusEvent event) {
 }
 ```
 <!-- .element: class="fragment" data-fragment-index="1"-->
-=======
-## BIAS
-### Agent branches: InteractiveGrabbers
-
-```java
-public interface InteractiveGrabber<E extends Enum<E>> extends Grabber {
-	public void setAction(Action<E> action);
-	public Action<E> action();
-}
-```
->>>>>>> fc44622e34eefd5767bbb5ea5f5bab28046b2fb1
 
 V:
 
 ## BIAS
-<<<<<<< HEAD
 ### Grabbers: Profile
 
 Profiles allow the following simple dialect:
@@ -507,22 +311,6 @@ V:
 <li class="fragment"> Simple to very complex input setups, even allowing concurrency of input events on application objects
 <li class="fragment"> Software maintenance and extensibility, such as when adding new hardware and/or application user-defined actions
 <li class="fragment"> TODO: pending reference to bias wiki
-=======
-### Agent branches: Multi-tempi Actions
-
-Idea is quite simple
-
-Multiple tempi actions (such as press-drag-release with a mouse) may be identified from
-a Grabber by analysing the flow of events respect to an initAction, as follows:
-
-V:
-
-## BIAS
-### Agent branches: Multi-tempi Actions
-
-<li class="fragment"> ```initAction(BogusEvent)``` (1st tempi): sets the ```initAction```, called when ```initAction == null```
-<li class="fragment"> ```execAction(BogusEvent)``` (2nd tempi): continues action execution, called when ```initAction == action()```
-<li class="fragment"> ```flushAction(BogusEvent)``` (3rd tempi): ends action, called when ```BogusEvent.flushed()``` is true or when ```initAction != action()```
 
 H:
 
@@ -538,9 +326,6 @@ V:
 ## Dandelion: Goal
 
 > Interactivitiy to *frames* (coordinate systems)
-=======
-<li class="fragment"> Default *agents*
-<li class="fragment"> Interactivitiy to *frames* ( _grabber_ coordinate systems)
 
 V:
 
@@ -548,11 +333,6 @@ V:
 ### Packages
 
 <li class="fragment"> *dandelion.geom* -> _Vec_, _Quat_, _Mat_ and _Frame_ (_Quat_ + _Vec_)
-=======
-<li class="fragment"> *dandelion.branch* -> _InteractiveFrame_ and _InteractiveAvatarFrame_; _MotionAgent_ and _KeyboardAgent_
-<li class="fragment"> *dandelion.geom* -> _Vec_, _Quat_, _Mat_ and _Frame_ (_Quat_ + _Vec_)
-<li class="fragment"> *dandelion.core* -> _Eye_, _GrabberFrame_
-
 <li class="fragment"> *dandelion.constraint* -> Apply constraints to _Frames_ to limit their motion
 <li class="fragment"> *dandelion.core* -> _GenericFrame_, _KeyFrameInterpolator_, _Eye_, and _AbstractScene_
 
@@ -681,7 +461,6 @@ V:
 
 V:
 
-<<<<<<< HEAD
 ## Dandelion
 ### AbstractScene: high-level scene-graph API
 
@@ -747,18 +526,15 @@ V:
 ### Envisaged interactive scenarios: Examples
 
 [2D image deformation](https://github.com/sechaparroc/Deformation) and [3D mesh deformation](https://github.com/sechaparroc/Deformation3D)
-=======
-## Proscene3: examples
 
-Navigation: All examples
+<figure>
+    <img height='300' src='fig/image_deformation.png' />
+</figure>
 
-* Orbit-like methods: all examples using a mouse
-* First person: [first person](https://github.com/remixlab/proscene/tree/master/examples/Eye/FirstPersonCamera)
-* Third person: [third person](https://github.com/remixlab/proscene/tree/master/examples/Eye/ThirdPersonCamera) and [flock](https://github.com/remixlab/proscene/tree/master/examples/Timing/Flock)
+Currently being ported to Android
 
 V:
 
-<<<<<<< HEAD
 ## Proscene3
 ### Envisaged interactive scenarios: Interactive dance performance
 
@@ -769,10 +545,6 @@ Stages:
 3. Shading
 
 Note: Custom bogus events?
-=======
-## Proscene3: examples
-
-Picking and manipulation: all examples with _Frames_
 
 //TODO: shader chaining, scene-graph
 
@@ -792,7 +564,3 @@ H:
 <li class="fragment"> Short term: Release _Proscene3_ -> JS and Android port
 <li class="fragment"> Middle term: _Proscene3_ cycle -> Collaborations (as with most cycles)
 <li class="fragment"> February 2017: Release of the curse materials: software + documentation
-=======
-## Proscene3: examples
-
-Application control: [deformation](https://github.com/nakednous/Deformation)
