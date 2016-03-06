@@ -37,16 +37,35 @@ H:
 
 ## Goal
 
-Provide interactivity to _application objects_ from any _input source_
+> Provide interactivity to _application objects_ from any _gesture input source_
 
-H:
-
-## Design
-
-<li class="fragment"> _Application bjects_ -> *Grabbers*
-<li class="fragment"> _Input source_ -> *Agents*
+in the simplest possible way
+<!-- .element: class="fragment" data-fragment-index="1"-->
 
 V:
+
+## Goal: Interactivity
+
+Universal interaction tasks:
+
+ 1. 2D & 3D viewpoint manipulation <!-- .element: class="fragment" data-fragment-index="1"-->
+ 2. Picking & Manipulation -> select & interaction <!-- .element: class="fragment" data-fragment-index="2"-->
+ 3. Application Control -> 'post-'WIMP interaction metaphors <!-- .element: class="fragment" data-fragment-index="3"-->
+
+
+For a relatively recent survey please refer to: "A Survey of Interaction Techniques for Interactive 3D Environments", Jankowski et al., 2013 - STAR.
+<!-- .element: class="fragment" data-fragment-index="4"-->
+
+V:
+
+## Goal
+
+It is also about:
+
+<li class="fragment"> Creating academic materials: software + documentation (API-docs + html5 e-book, tutorials & wikis)
+<li class="fragment"> Appropiation through collaboration: open-sourcing the materials to encourage hacking them
+
+H:
 
 ## Design
 
@@ -66,51 +85,40 @@ H:
 
 V:
 
-## Bias
+## Bias: Package
+
+> Bogus Input Action Selector 
+
+V:
+
+## Bias: goal
 
 <figure>
-    <img height='400' src='fig/architecture.png' />
-    <figcaption>Architecture</figcaption>
+    <img height='300' src='fig/arch_5.png' />
+    <figcaption>Communication channel</figcaption>
 </figure>
 
 V:
 
-## BIAS
-### BogusEvents
+## Bias: User gestures
+
+<figure>
+    <img height='500' src='fig/arch_4.png' />
+    <figcaption>Input sources</figcaption>
+</figure>
 
 V:
 
-## BIAS
-### BogusEvents
+## Bias: Grabbers
 
-_BogusEvents_ are of the following types:
-
- * KeyboardEvent <!-- .element: class="fragment" data-fragment-index="1"-->
- * ClickEvent <!-- .element: class="fragment" data-fragment-index="2"-->
- * MotionEvent <!-- .element: class="fragment" data-fragment-index="3"-->
-   * DOF1Event
-   * DOF2Event
-   * DOF3Event
-   * DOF6Event
-   
-V:
-
-## BIAS
-### BogusEvents: Shortcuts
-
-
+<figure>
+    <img height='500' src='fig/arch_3.png' />
+    <figcaption>Pickable </figcaption>
+</figure>
 
 V:
 
-## BIAS
-### BogusEvents: Multi-tempi
-
-
-
-V:
-
-## BIAS
-### Grabbers
+## BIAS: Grabbers
 
 ```java
 public interface Grabber {
@@ -131,11 +139,110 @@ public interface Grabber {
 
 V:
 
-## BIAS
-### Grabbers: example
+## Bias: BogusEvents
+
+<figure>
+    <img height='500' src='fig/arch_2.png' />
+    <figcaption>Input sources</figcaption>
+</figure>
+
+V:
+
+## BIAS: BogusEvents
+### Shortcuts
+
+> A gesture identifier
+
+Example: The mouse button + modifier mask when a dragging gesture is taking place
+<!-- .element: class="fragment" data-fragment-index="1"-->
+
+V:
+
+## BIAS: BogusEvent
+### MultiTempi
+
+<li class="fragment"> ```fired()```: event instantiation
+<li class="fragment"> ```flushed()```: event termination
+<li class="fragment"> ```!fired() && !flushed()```: event execution (default state)
+
+V:
+
+## BIAS: BogusEvent
+### Types
+
+_BogusEvent_ instances are of the following types:
+
+ * KeyboardEvent -> 't', 'U', or with modifiers: Shift + 'w'
+ <!-- .element: class="fragment" data-fragment-index="1"-->
+ * ClickEvent: -> aka "tap", 1,2,...n clicks. Supports modifiers
+ <!-- .element: class="fragment" data-fragment-index="2"-->
+ * MotionEvent -> kinematics & DOFs, abs/rel, speed
+ <!-- .element: class="fragment" data-fragment-index="3"-->
+   * DOF1Event
+   * DOF2Event
+   * DOF3Event
+   * DOF6Event
+
+V:
+
+## Bias: Agent
+### BogusEvent reduction
+
+<figure>
+    <img height='420' src='fig/arch_1a.png' />
+    <figcaption>Collect and reduce input into a _BogusEvent_</figcaption>
+</figure>
+
+V:
+
+## Bias: Agent
+#### updateTrackedGrabber(): Update the 'inputGrabber()'
+
+<figure>
+    <img height='450' src='fig/arch_1.png' />
+    <figcaption>grabber.checkIfGrabsInput(event)</figcaption>
+</figure>
+
+V:
+
+## Bias: Agent
+#### handle(): perform an interaction on the 'inputGrabber()'
+
+<figure>
+    <img height='450' src='fig/arch.png' />
+    <figcaption>grabber.performInteraction(event)</figcaption>
+</figure>
+
+V:
+
+## BIAS: Example
+### Part 1: Implementing an agent
 
 ```java
-public class CustomGrabberFrame implements Grabber {
+protected KeyboardEvent currentEvent;
+
+public void keyEvent(processing.event.KeyEvent e) {
+    press = e.getAction() == processing.event.KeyEvent.PRESS;
+    release = e.getAction() == processing.event.KeyEvent.RELEASE;
+    
+    // event reduction Processing -> BogusEvent
+    currentEvent = new KeyboardEvent(e.getModifiers(), e.getKey());
+    if (press)
+      // update only on press
+      updateTrackedGrabber(currentEvent);
+
+    // always handle
+    handle(release ? currentEvent.flush() : currentEvent.fire());
+  }
+```
+
+V:
+
+## BIAS: example
+### Part 2: Implementing a grabber
+
+```java
+public class GrabberObject implements Grabber {
     @Override
     boolean checkIfGrabsInput(BogusEvent event) {
         return withinShapeProjectionArea(event);
@@ -151,8 +258,7 @@ public class CustomGrabberFrame implements Grabber {
 
 V:
 
-## BIAS
-### Grabbers: Profile
+## BIAS: Grabber Profile
 
 A [functional programming](https://en.wikipedia.org/wiki/Functional_programming) extension which parses the event in
 ```grabber.performInteraction(BogusEvent event)```
@@ -196,79 +302,15 @@ grabber.setClickBinding(RIGHT, '2', "callback_method");
 
 V:
 
-## BIAS
-### Grabbers: Profile
+## BIAS: Conclusions
 
-
-```java
-public void performInteraction(BogusEvent event) {
-    profile.handle(event);
-}
-```
-
-V:
-
-## BIAS
-### Agents
-
-Collect and reduce input into a _BogusEvent_ in order to:
-
-<li class="fragment"> Update the _Grabber_ (```agent.inputGrabber()```)
-<li class="fragment"> Perform an interaction on the ```agent.inputGrabber()```
-
-V:
-
-## BIAS
-### Agents
-
-Update the _Grabber_
-
-```java
-protected Grabber updateTrackedGrabber(BogusEvent event)
-```
-
-The ```inputGrabber()``` may be set with ```agent.setDefaultGrabber(Grabber grabber)```
-
-V:
-
-## BIAS
-### Agents
-
-Perform an interaction on the ```inputGrabber()```
-
-```java
-protected boolean handle(BogusEvent event)
-```
-
-V:
-
-## BIAS
-### Agents: a KeyAgent example
-
-```java
-protected KeyboardEvent currentEvent;
-
-public void keyEvent(processing.event.KeyEvent e) {
-    press = e.getAction() == processing.event.KeyEvent.PRESS;
-    release = e.getAction() == processing.event.KeyEvent.RELEASE;
-    
-    // event reduction Processing -> BogusEvent
-    currentEvent = new KeyboardEvent(e.getModifiers(), e.getKey());
-    if (press)
-      // update only on press
-      updateTrackedGrabber(currentEvent);
-
-    // always handle
-    handle(release ? currentEvent.flush() : currentEvent.fire());
-  }
-```
-
-V:
-
-## BIAS
-### InputHandler
-
-
+<li class="fragment"> Target audience: advanced programmers with (TODO name scenarios here with references)
+<li class="fragment"> Multi-language (java + android + js) = Java-based implementation + single-threaded + No-dependencies
+<li class="fragment"> Which means it can easily be plugged into any third-party visual computing application
+<li class="fragment"> A wide scope of interactive applications
+<li class="fragment"> Simple to very complex input setups, even allowing concurrency of input events on application objects
+<li class="fragment"> Software maintenance and extensibility, such as when adding new hardware and/or application user-defined actions
+<li class="fragment"> TODO: pending reference to bias wiki
 
 H:
 
@@ -281,29 +323,113 @@ H:
 
 V:
 
-## Dandelion
+## Dandelion: Goal
 
-<li class="fragment"> Default *agents*
-<li class="fragment"> Interactivitiy to *frames* (coordinate system _grabbers_)
+> Interactivitiy to *frames* (coordinate systems)
 
 V:
 
 ## Dandelion
 ### Packages
 
-<li class="fragment"> *dandelion.agent* -> _MotionAgent_ and _KeyboardAgent_
 <li class="fragment"> *dandelion.geom* -> _Vec_, _Quat_, _Mat_ and _Frame_ (_Quat_ + _Vec_)
-<li class="fragment"> *dandelion.core* -> _Eye_, _GrabberFrame_, _InteractiveFrame_ and _InteractiveAvatarFrame_
 <li class="fragment"> *dandelion.constraint* -> Apply constraints to _Frames_ to limit their motion
+<li class="fragment"> *dandelion.core* -> _GenericFrame_, _KeyFrameInterpolator_, _Eye_, and _AbstractScene_
 
 V:
 
 ## Dandelion
+### Frame: Hierarchy
 
-<figure>
-    <img height='400' src='fig/iAvatar.png' />
-    <figcaption>Frame hierarchy</figcaption>
-</figure>
+```sh
+ world
+  ^
+  |\
+  | \  
+  f1 eye
+  ^   ^
+  |\   \
+  | \   \
+  f2 f3  f5
+  ^
+  |
+  |
+  f4
+```
+
+```java
+  frame.setReferenceFrame(parent);
+```
+
+V:
+
+## Dandelion
+### Frame: Hierarchy
+
+```java
+  Frame frame = new Frame();
+  scene.pushModelView();
+  scene.applyModelView(frame.matrix());
+  // Draw your object here, in the local fr coordinate system.
+  scene.popModelView();
+```
+
+V:
+
+## Dandelion
+### GenericFrame
+
+> A Frame Grabber (frame that implements the Grabber interface)
+
+<li class="fragment"> Frames that are pickable and interactive
+<li class="fragment"> A frame is *generic* in that it can belong either to an object or to the Eye
+<li class="fragment"> Scene-graph: Allows top/down traversals of the frame hierarchy
+<li class="fragment"> third-person cam: A gFrame can be followed by another camera
+
+N:
+
+For the scenegraph we need to keep references to frame children. We did it internally, preserving the same API (setReferenceFrame does it all)
+
+V:
+
+## Dandelion
+### KeyFrameInterpolator
+
+<li class="fragment"> Interpolation paths [Catmull Rom](https://en.wikipedia.org/wiki/Cubic_Hermite_spline#Catmull.E2.80.93Rom_spline)
+
+TODO: video here
+
+V:
+
+## Dandelion
+### Eye
+
+<li class="fragment"> 2D (Window) & 3D (Camera)
+<li class="fragment"> Back-face culling
+<li class="fragment"> View-frustum made easy, while targetting the [z-Buffer precision](https://www.opengl.org/wiki/Depth_Buffer_Precision)
+
+V:
+
+## Dandelion
+### AbstractScene: high-level scene-graph API
+
+High-level secne handler which manages:
+
+<li class="fragment"> Visual hints
+<li class="fragment"> Traversal algorithm: 
+<li class="fragment"> Frame-hierarchy
+<li class="fragment"> BIAS agents
+
+V:
+
+## Dandelion: Conclusions
+
+<li class="fragment"> Target audience: programmers which want to build upon a scenegraph foundation
+<li class="fragment"> Multi-language (java + android + js) = Java-based implementation + single-threaded + No-dependencies simple
+and coherent scene-graph API
+<li class="fragment"> Those of BIAS
+<li class="fragment"> It can easily be plugged into any third-party visual computing application
+<li class="fragment"> TODO: pending reference to bias wiki
 
 H:
 
@@ -318,9 +444,16 @@ V:
 
 ## Proscene3
 
-* Bridge between Dandelion and [Processing3](http://processing.org)
-* _Models_ -> _Grabber_ [PShape](https://processing.org/reference/PShape.html) wrapper implementing ```checkIfGrabsInput(event)``` using a [picking buffer](http://content.gpwiki.org/index.php/OpenGL_Selection_Using_Unique_Color_IDs)
+<li class="fragment"> Bridge between Dandelion and [Processing3](http://processing.org)
+<li class="fragment"> Seamless thorough integration between the two
+<li class="fragment"> Takes full advantage of Processing concise API and its advanced-rendering capabilities (TODO: videos, references here)
 
+V:
+
+## Proscene3
+### InteractiveFrame
+
+* _InteractiveFrame_ -> _GenericFrame_ [PShape](https://processing.org/reference/PShape.html) wrapper implementing ```checkIfGrabsInput(event)``` using a [picking buffer](http://content.gpwiki.org/index.php/OpenGL_Selection_Using_Unique_Color_IDs)
 <figure>
     <img height='300' src='fig/picking_buffer.png' />
     <figcaption>Picking buffer</figcaption>
@@ -328,49 +461,69 @@ V:
 
 V:
 
-## Proscene3
+## Dandelion
+### AbstractScene: high-level scene-graph API
 
-<figure>
-    <img height='250' src='fig/iModelObject.png' />
-    <figcaption>InteractiveModelObject hierarchy</figcaption>
-</figure>
-
-V:
-
-## Proscene3
-
-<figure>
-    <img height='400' src='fig/iModelFrame.png' />
-    <figcaption>InteractiveModelFrame hierarchy</figcaption>
-</figure>
+<li class="fragment"> Default rendering of shapes not already present on the Processing API, such hollow cylinder or cone
+<li class="fragment"> Traversal algorithm: ```scene.drawFrames()```
+<li class="fragment"> InterativeFrames can be projected onto an arbritary number of (off-screen) graphics buffer
 
 V:
 
 ## Proscene3
-### Envisaged interactive scenarios: Custom Grabbers
+### Envisaged interactive scenarios: Custom Appearance
 
-Declare some _grabbers_ and override:
-
-1. public boolean checkIfGrabsInput(event)
-2. public void performInteraction(event)
-
-Check the [MouseGrabbers](https://github.com/remixlab/proscene/tree/3.0/examples/Basics/MouseGrabbers) example
-
-V:
-
-## Proscene3
-### Envisaged interactive scenarios: Custom GrabberFrames
-
-Everything in Dandelion is _GrabberFrame!_. There's no difference between eyeFrame and iFrame what so ever as it was in Proscene2.
-
-For instance implement custom _InteractiveFrames_, i.e., derive from _GrabberFrame_ and parameterise your custom _iFrame_ using a custom _action_ set
-
-Some examples coming soon!
+```java
+  public void setup() {
+    frame = new InteractiveFrame(scene, createShape(SPHERE, 40));
+  }
+```
 
 V:
 
 ## Proscene3
-### Envisaged interactive scenarios: InteractiveModelFrames
+### Envisaged interactive scenarios: Custom Appearance
+
+```java
+  public void setup() {
+    frame = new InteractiveFrame(scene, this, "boxDrawing");
+  }
+  
+  public void boxDrawing(PGraphics pg) {
+    pg.box(30);
+  }
+```
+
+V:
+
+## Proscene3
+### Envisaged interactive scenarios: Custom Actions
+
+```java
+  public void setup() {
+    frame.setMotionBinding(LEFT, "translate");
+  }
+```
+
+V:
+
+## Proscene3
+### Envisaged interactive scenarios: Custom Actions
+
+```java
+  public void setup() {
+    frame.setMotionBinding(this, LEFT, "boxCustomMotion");
+  }
+  
+  public void boxCustomMotion(InteractiveFrame frame, MotionEvent event) {
+    frame.screenRotate(event);
+  }
+```
+
+V:
+
+## Proscene3
+### Envisaged interactive scenarios: Examples
 
 [2D image deformation](https://github.com/sechaparroc/Deformation) and [3D mesh deformation](https://github.com/sechaparroc/Deformation3D)
 
@@ -383,32 +536,31 @@ Currently being ported to Android
 V:
 
 ## Proscene3
-### Envisaged interactive scenarios: InteractiveModelObject
-
-Interactive dance performance using _InteractiveModelObject_
+### Envisaged interactive scenarios: Interactive dance performance
 
 Stages:
 
 1. Gesture recognition
-2. Custom action set on the _InteractiveModelObject_ defining its motion (most likely) using Inverse Kinematics
+2. Custom action set on the _InteractiveFrame_ defining its motion (most likely) using Inverse Kinematics
 3. Shading
 
 Note: Custom bogus events?
 
+//TODO: shader chaining, scene-graph
+
 V:
 
-## Proscene3
-### Envisaged interactive scenarios: other customizations
+## Proscene3: Conclusions
 
-* [GrabberObjects](https://github.com/remixlab/proscene-experiments/blob/master/Interaction/ActionGrabbers/Tutorial2/Tutorial2.pde)
-* [InteractiveGrabberObjects](https://github.com/remixlab/proscene-experiments/tree/master/Interaction/ActionGrabbers/Tutorial3)
-* [GrabberModelFrames](https://github.com/remixlab/proscene-experiments/blob/master/Interaction/CustomModels/Tutorial0/Tutorial0.pde)
-* [interacitveModelObjects](https://github.com/remixlab/proscene-experiments/blob/master/Interaction/CustomModels/Tutorial3/Tutorial3.pde)
+<li class="fragment"> Target audience: that of [Processing](https://processing.org/)
+<li class="fragment"> Multi-language (java + android + js) = Java-based implementation + single-threaded + No-dependencies
+<li class="fragment"> Single and multi-threaded timers
+<li class="fragment"> Those of Dandelion & BIAS, but already pluged in into Processing
 
 H:
 
 ## Roadmap
 
-<li class="fragment"> Short term: _Alpha3_ -> Support Processing3-a7, Android port
-<li class="fragment"> Middle term: _Beta_ cycle -> API docs, comprehensive set of examples, journal paper
-<li class="fragment"> May 2015: Release
+<li class="fragment"> Short term: Release _Proscene3_ -> JS and Android port
+<li class="fragment"> Middle term: _Proscene3_ cycle -> Collaborations (as with most cycles)
+<li class="fragment"> February 2017: Release of the curse materials: software + documentation
