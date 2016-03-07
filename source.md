@@ -142,9 +142,12 @@ V:
 ## Bias: BogusEvents
 
 <figure>
-    <img height='500' src='fig/arch_2.png' />
+    <img height='400' src='fig/arch_2.png' />
     <figcaption>Input sources</figcaption>
 </figure>
+
+Bogus event in that it is a high-level (soft) event which should be reduced from a low-level event
+<!-- .element: class="fragment" data-fragment-index="1"-->
 
 V:
 
@@ -461,12 +464,12 @@ V:
 
 V:
 
-## Dandelion
-### AbstractScene: high-level scene-graph API
+## Proscene3
+### Scene: high-level scene-graph API
 
 <li class="fragment"> Default rendering of shapes not already present on the Processing API, such hollow cylinder or cone
 <li class="fragment"> Traversal algorithm: ```scene.drawFrames()```
-<li class="fragment"> InterativeFrames can be projected onto an arbritary number of (off-screen) graphics buffer
+<li class="fragment"> InterativeFrames can be projected onto an arbritary number of (off-screen) graphics buffer (TODO shader examples)
 
 V:
 
