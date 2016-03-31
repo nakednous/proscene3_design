@@ -258,6 +258,7 @@ public class GrabberObject implements Grabber {
     }
 }
 ```
+//TODO [simple callback example](https://github.com/nakednous/bias/blob/master/examples/SimpleCallback/SimpleCallback.pde)
 
 V:
 
@@ -467,7 +468,7 @@ V:
 ## Proscene3
 ### Scene: high-level scene-graph API
 
-<li class="fragment"> Default rendering of shapes not already present on the Processing API, such hollow cylinder or cone
+<li class="fragment"> Default rendering of shapes not already present in the Processing API, such hollow cylinder or cone
 <li class="fragment"> Traversal algorithm: ```scene.drawFrames()```
 <li class="fragment"> InterativeFrames can be projected onto an arbritary number of (off-screen) graphics buffer (TODO shader examples)
 
@@ -567,3 +568,5 @@ H:
 <li class="fragment"> Short term: Release _Proscene3_ -> JS and Android port
 <li class="fragment"> Middle term: _Proscene3_ cycle -> Collaborations (as with most cycles)
 <li class="fragment"> February 2017: Release of the curse materials: software + documentation
+
+//TODO possible Collaborations pending to be described
