@@ -39,8 +39,22 @@ H:
 
 > Provide interactivity to _application objects_ from any _gesture input source_
 
-in the simplest possible way
+in the simplest possible way:
 <!-- .element: class="fragment" data-fragment-index="1"-->
+
+<li class="fragment"> api simplicity & flexibility
+<li class="fragment"> customizability
+
+N:
+* API simplicity may be evaluated from the set of
+instructions needed to accomplish a standard task
+over a given domain
+* API flexibility is related to as whether or not
+an advanced task can be accomplished by the
+framework and if so, how.
+* Software maintenance and extensibility, such as
+when adding new hardware and/or application
+user-defined actions
 
 V:
 
@@ -55,6 +69,27 @@ Universal interaction tasks:
 
 For a relatively recent survey please refer to: "A Survey of Interaction Techniques for Interactive 3D Environments", Jankowski et al., 2013 - STAR.
 <!-- .element: class="fragment" data-fragment-index="4"-->
+
+V:
+
+## Goal: Interactivity
+### Viewpoint manipulation
+
+<video data-autoplay src="vid/flock.ogv"></video>
+
+V:
+
+## Goal: Interactivity
+### Picking & Manipulation -> select & interaction
+
+<video data-autoplay src="vid/creators.mp4"></video>
+
+V:
+
+## Goal: Interactivity
+### Application Control -> 'post-'WIMP interaction metaphors
+
+<video data-autoplay src="vid/app_ctrl.ogv"></video>
 
 V:
 
@@ -258,7 +293,8 @@ public class GrabberObject implements Grabber {
     }
 }
 ```
-//TODO [simple callback example](https://github.com/nakednous/bias/blob/master/examples/SimpleCallback/SimpleCallback.pde)
+
+Check out the [simple callback example](https://github.com/nakednous/bias/blob/master/examples/SimpleCallback/SimpleCallback.pde)
 
 V:
 
@@ -308,13 +344,13 @@ V:
 
 ## BIAS: Conclusions
 
-<li class="fragment"> Target audience: advanced programmers with (TODO name scenarios here with references)
+<li class="fragment"> Target audience: Gesture parsing programming, e.g., I/O & Machine learning developers
 <li class="fragment"> Multi-language (java + android + js) = Java-based implementation + single-threaded + No-dependencies
 <li class="fragment"> Which means it can easily be plugged into any third-party visual computing application
 <li class="fragment"> A wide scope of interactive applications
 <li class="fragment"> Simple to very complex input setups, even allowing concurrency of input events on application objects
 <li class="fragment"> Software maintenance and extensibility, such as when adding new hardware and/or application user-defined actions
-<li class="fragment"> TODO: pending reference to bias wiki
+<li class="fragment"> Check out the [bias wiki](https://github.com/nakednous/bias/wiki)
 
 H:
 
@@ -399,9 +435,10 @@ V:
 ## Dandelion
 ### KeyFrameInterpolator
 
-<li class="fragment"> Interpolation paths [Catmull Rom](https://en.wikipedia.org/wiki/Cubic_Hermite_spline#Catmull.E2.80.93Rom_spline)
+[Catmull Rom splines](https://en.wikipedia.org/wiki/Cubic_Hermite_spline#Catmull.E2.80.93Rom_spline) key frames
 
-TODO: video here
+<video data-autoplay src="vid/just_cause.webm"></video>
+<!-- .element: class="fragment" data-fragment-index="1"-->
 
 V:
 
@@ -420,7 +457,7 @@ V:
 High-level secne handler which manages:
 
 <li class="fragment"> Visual hints
-<li class="fragment"> Traversal algorithm: 
+<li class="fragment"> Traversal algorithm: ```for (GenericFrame frame : leadingFrames()) visitFrame(frame)```
 <li class="fragment"> Frame-hierarchy
 <li class="fragment"> BIAS agents
 
@@ -433,7 +470,6 @@ V:
 and coherent scene-graph API
 <li class="fragment"> Those of BIAS
 <li class="fragment"> It can easily be plugged into any third-party visual computing application
-<li class="fragment"> TODO: pending reference to bias wiki
 
 H:
 
@@ -450,7 +486,7 @@ V:
 
 <li class="fragment"> Bridge between Dandelion and [Processing3](http://processing.org)
 <li class="fragment"> Seamless thorough integration between the two
-<li class="fragment"> Takes full advantage of Processing concise API and its advanced-rendering capabilities (TODO: videos, references here)
+<li class="fragment"> Takes full advantage of Processing concise API and its advanced-rendering capabilities
 
 V:
 
