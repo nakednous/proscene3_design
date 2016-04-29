@@ -1,0 +1,16 @@
+sequenceDiagram
+    User->>InputHandler: gesture
+    Note right of User: Gesture sources: Mouse, BCI, TouchSurface, SpaceNavigator, etc.
+    Note over InputHandler: Agent collection
+    opt feed
+        InputHandler-->>Agent: gesture
+    end
+    opt enqueue
+        Agent-->>InputHandler: < inputGrabber, bogusEvent >
+    end
+    loop dequeue
+      InputHandler->>Grabber: bogusEvent
+    end
+    Note over Grabber: performInteraction(bogusEvent)
+
+    %%Note over InputHandler: Agent collection

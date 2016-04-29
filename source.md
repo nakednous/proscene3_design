@@ -98,7 +98,7 @@ V:
 It is also about:
 
 <li class="fragment"> Creating academic materials: software + documentation (API-docs + html5 e-book, tutorials & wikis)
-<li class="fragment"> Appropiation through collaboration: open-sourcing the materials to encourage hacking them
+<li class="fragment"> Appropriation through collaboration: open-sourcing the materials to encourage hacking them
 
 H:
 
@@ -233,22 +233,38 @@ V:
 
 V:
 
-## Bias: Agent
-#### updateTrackedGrabber(): Update the 'inputGrabber()'
+## Bias: Agent: updateTrackedGrabber()
 
 <figure>
-    <img height='450' src='fig/arch_1.png' />
-    <figcaption>grabber.checkIfGrabsInput(event)</figcaption>
+    <img height='500' src='fig/arch1a.png' />
+    <figcaption>Event registration</figcaption>
 </figure>
 
 V:
 
-## Bias: Agent
-#### handle(): perform an interaction on the 'inputGrabber()'
+## Bias: Agent: handle()
 
 <figure>
-    <img height='450' src='fig/arch.png' />
-    <figcaption>grabber.performInteraction(event)</figcaption>
+    <img height='500' src='fig/arch1b.png' />
+    <figcaption>Event registration</figcaption>
+</figure>
+
+V:
+
+## Bias: Agent: updateTrackedGrabber()
+
+<figure>
+    <img height='500' src='fig/arch2a.png' />
+    <figcaption>Polling</figcaption>
+</figure>
+
+V:
+
+## Bias: Agent: handle()
+
+<figure>
+    <img height='500' src='fig/arch2b.png' />
+    <figcaption>Polling</figcaption>
 </figure>
 
 V:
@@ -365,7 +381,7 @@ V:
 
 ## Dandelion: Goal
 
-> Interactivitiy to *frames* (coordinate systems)
+> Interactivity to *frames* (coordinate systems)
 
 V:
 
