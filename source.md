@@ -233,38 +233,29 @@ V:
 
 V:
 
-## Bias: Agent: updateTrackedGrabber()
+## Bias: Agent
 
 <figure>
-    <img height='500' src='fig/arch1a.png' />
-    <figcaption>Event registration</figcaption>
+    <img height='500' src='fig/seq_a.png' />
+    <figcaption>Listening mechanisms</figcaption>
 </figure>
 
 V:
 
-## Bias: Agent: handle()
+## Bias: Agent
 
 <figure>
-    <img height='500' src='fig/arch1b.png' />
-    <figcaption>Event registration</figcaption>
+    <img height='500' src='fig/seq_b1.png' />
+    <figcaption>updateTrackedGrabber()</figcaption>
 </figure>
 
 V:
 
-## Bias: Agent: updateTrackedGrabber()
+## Bias: Agent
 
 <figure>
-    <img height='500' src='fig/arch2a.png' />
-    <figcaption>Polling</figcaption>
-</figure>
-
-V:
-
-## Bias: Agent: handle()
-
-<figure>
-    <img height='500' src='fig/arch2b.png' />
-    <figcaption>Polling</figcaption>
+    <img height='500' src='fig/seq_b2.png' />
+    <figcaption>handle()</figcaption>
 </figure>
 
 V:

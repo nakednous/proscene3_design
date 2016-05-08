@@ -1,0 +1,10 @@
+sequenceDiagram
+    opt handle
+        opt enqueue
+           Agent-->>InputHandler: < bogusEvent, inputGrabber >
+        end
+        loop dequeue
+          InputHandler->>Grabber: bogusEvent
+        end
+        Note over Grabber: performInteraction(bogusEvent)
+    end

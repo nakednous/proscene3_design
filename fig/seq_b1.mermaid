@@ -1,0 +1,10 @@
+sequenceDiagram
+    opt updateTrackedGrabber
+        Note over Agent: Grabber collection
+        Agent->>Grabber: bogusEvent
+        %opt checkIfGrabsInput
+            Note over Grabber: checkIfGrabsInput(bogusEvent)
+            Grabber-->>Agent: grabber
+        %end
+        Note over Agent,Grabber: inputGrabber = trackedGrabber != null ? trackedGrabber : defaultGrabber
+    end

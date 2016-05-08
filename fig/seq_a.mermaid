@@ -1,0 +1,13 @@
+sequenceDiagram
+    Note right of User: Mouse, BCI, TouchSurface, SpaceNavigator, etc.
+    alt polling
+        User->>InputHandler: gesture
+        Note over InputHandler: Agent collection
+        %alt updateTrackedGrabberFeed
+            InputHandler->>Agent: gesture
+        %else handleFeed
+            %InputHandler-->>Agent: gesture
+        %end
+    else application's own listening mechanism
+        User->>Agent: gesture
+    end
