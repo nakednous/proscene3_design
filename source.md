@@ -31,7 +31,7 @@ H:
  3. BIAS<!-- .element: class="fragment" data-fragment-index="3"-->
  4. Dandelion<!-- .element: class="fragment" data-fragment-index="4"-->
  5. Proscene3<!-- .element: class="fragment" data-fragment-index="5"-->
- 6. Interactive Applications<!-- .element: class="fragment" data-fragment-index="6"-->
+ 6. Demo<!-- .element: class="fragment" data-fragment-index="6"-->
  7. Roadmap<!-- .element: class="fragment" data-fragment-index="7"-->
  
 H:
@@ -570,34 +570,6 @@ V:
 
 V:
 
-## Proscene3
-### Envisaged interactive scenarios: Examples
-
-[2D image deformation](https://github.com/sechaparroc/Deformation) and [3D mesh deformation](https://github.com/sechaparroc/Deformation3D)
-
-<figure>
-    <img height='300' src='fig/image_deformation.png' />
-</figure>
-
-Currently being ported to Android
-
-V:
-
-## Proscene3
-### Envisaged interactive scenarios: Interactive dance performance
-
-Stages:
-
-1. Gesture recognition
-2. Custom action set on the _InteractiveFrame_ defining its motion (most likely) using Inverse Kinematics
-3. Shading
-
-Note: Custom bogus events?
-
-//TODO: shader chaining, scene-graph
-
-V:
-
 ## Proscene3: Conclusions
 
 <li class="fragment"> Target audience: that of [Processing](https://processing.org/)
@@ -607,31 +579,21 @@ V:
 
 H:
 
-##Interactive Tools and Applications
-
-V:
-
-##Overview
-
-###Dandelion
-<li class="fragment"> Uses local coordinates for handling and manipulation.
-###BIAS
-<li class="fragment"> Relates an input provide by a given device with actions for handling objects that can be “grabbed”.
-###ProScene3
-<li class="fragment"> Simplifies the development of interactive applications.
-
-V:
-
-##Interactive Tools and Applications
+## Demo
+### Interactive Tools and Applications
 
 <li class="fragment"> Deformation of 2D images and 3D meshes
 <li class="fragment"> Forward Kinematic Hierarchical Model
 <li class="fragment"> Inverse Kinematics (Jacobian Pseudoinverse)
-<li class="fragment"> Artificial Life example (Aquarium)
+<li class="fragment"> Artificial Life Aquarium
+
+//Organizar a partir de aca empleando este indice
+//por ej., reemplazar flow por Deformation of 2D images and 3D meshes
 
 V:
 
-##Interactive Application: Flow
+## Demo: Deformation of 2D images and 3D meshes
+
 <li class="fragment"> An input is given: 3D mesh or 2D image along with the basic pose information.
 <figure>
     <img height='300' src='fig/interactive_1.png' />
