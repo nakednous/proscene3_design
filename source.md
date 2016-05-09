@@ -587,7 +587,7 @@ H:
 <li class="fragment"> Inverse Kinematics (Jacobian Pseudoinverse)
 <li class="fragment"> Artificial Life Aquarium
 
-//Organizar a partir de aca empleando este indice
+//TODO: Organizar a partir de aca empleando este indice
 //por ej., reemplazar flow por Deformation of 2D images and 3D meshes
 
 V:
