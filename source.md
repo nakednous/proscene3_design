@@ -31,7 +31,8 @@ H:
  3. BIAS<!-- .element: class="fragment" data-fragment-index="3"-->
  4. Dandelion<!-- .element: class="fragment" data-fragment-index="4"-->
  5. Proscene3<!-- .element: class="fragment" data-fragment-index="5"-->
- 6. Roadmap<!-- .element: class="fragment" data-fragment-index="6"-->
+ 6. Interactive Applications<!-- .element: class="fragment" data-fragment-index="6"-->
+ 7. Roadmap<!-- .element: class="fragment" data-fragment-index="7"-->
  
 H:
 
@@ -606,6 +607,162 @@ V:
 
 H:
 
+##Interactive Tools and Applications
+
+V:
+
+##Overview
+
+###Dandelion
+<li class="fragment"> Uses local coordinates for handling and manipulation.
+###BIAS
+<li class="fragment"> Relates an input provide by a given device with actions for handling objects that can be “grabbed”.
+###ProScene3
+<li class="fragment"> Simplifies the development of interactive applications.
+
+V:
+
+##Interactive Tools and Applications
+
+<li class="fragment"> Deformation of 2D images and 3D meshes
+<li class="fragment"> Forward Kinematic Hierarchical Model
+<li class="fragment"> Inverse Kinematics (Jacobian Pseudoinverse)
+<li class="fragment"> Artificial Life example (Aquarium)
+
+V:
+
+##Interactive Application: Flow
+<li class="fragment"> An input is given: 3D mesh or 2D image along with the basic pose information.
+<figure>
+    <img height='300' src='fig/interactive_1.png' />
+    <figcaption>Input</figcaption>
+</figure>
+
+V:
+
+##Interactive Application: Flow
+<li class="fragment"> Manipulation of information to perform the desired action.
+<figure>
+    <img height='300' src='fig/interactive_2.png' />
+    <figcaption>User manipulation</figcaption>
+</figure>
+
+V:
+
+##Interactive Application: Flow
+<li class="fragment"> Desired output is obtained.
+<figure>
+    <img height='300' src='fig/interactive_3.png' />
+    <figcaption>Output</figcaption>
+</figure>
+
+V:
+
+##Interactive Tools and Applications
+
+<li class="fragment"> There are required  tools with which the user could interact that allows to relate some action with a specific region of the image/mesh input (BIAS).
+<li class="fragment"> We extend the class interactive Frame (Dandelion) to associate to them information about the image/mesh.
+
+V:
+
+##Interactive Tools and Applications
+
+<figure>
+    <img height='300' src='fig/interactive_4.png' />
+    <figcaption>Interactive Tool</figcaption>
+</figure>
+
+V:
+
+##Interactive Tool : Control Point
+<li class="fragment"> A transformation  (e.g Rotation, translation)  (B) is related to a given point ( A) in the space (defined by a local coordinate system).
+<li class="fragment"> If the origin (A) is grabbed a motion action is applied to the origin and the image points.
+<li class="fragment"> If the image (B) is grabbed the transformation is applied just to the image point (B) (Local coordinate space)
+
+V:
+##Application: Free Form Deformation 3D
+[2D](https://github.com/sechaparroc/Deformation) and [3D](https://github.com/sechaparroc/Deformation3D) deformation using MLS
+
+<!---
+<video data-autoplay src="vid/flock.ogv"></video>
+-->
+<figure>
+    <img height='300' src='fig/interactive_6.png' />
+    <figcaption>Free Form Deformation</figcaption>
+</figure>
+
+
+Related Paper: Image Deformation Using [MLS](http://www.cs.rice.edu/~jwarren/research/mls.pdf)
+
+
+V:
+
+##Interactive Tool : Bone - Hierarchical Kinematic Model
+<li class="fragment"> Is a typical model used in Kinematics. A Bone is related to a Joint that provides DOF 3.
+<li class="fragment"> Usage of local coordinates and hierarchy (interactive Frames) 
+<li class="fragment"> Overrided ClickEvent to add or delete Bones.
+<li class="fragment"> DOF 1 events overrided for other purposes: (Weight, Width, enable/disable  end effector).
+
+V:
+##Interactive Tool: Bone 
+<figure>
+    <img height='300' src='fig/interactive_5.png' />
+    <figcaption>Hierarchical Kinematic Model</figcaption>
+</figure>
+
+V:
+##Application: Kinematics
+Hierarchical Kinematic Model [2D](https://github.com/sechaparroc/Kinematics-Laplacian) and [3D](https://github.com/sechaparroc/Kinematics-Laplacian-3D).
+
+<video data-autoplay src="vid/skinning_3D.mp4"></video>
+
+V:
+##Application: Forward And Inverse Kinematics
+<li class="fragment"> Introduction to [Inverse Kinematics](http://www.math.ucsd.edu/~sbuss/ResearchWeb/ikmethods/iksurvey.pdf)
+<li class="fragment"> Selectively Damped Least Squares for [Inverse Kinematics](http://www.math.ucsd.edu/~sbuss/ResearchWeb/ikmethods/SdlsPaper.pdf)
+<li class="fragment"> Mesh Deformation and [Laplacian Surface Editing](http://www.cs.berkeley.edu/~jrs/meshpapers/SCOLARS.pdf)
+V:
+##Interactive Tool : Bounding Body - Free Form Deformation
+
+<li class="fragment">Usage of an auxiliary scene to deform a regular polygon. 
+<li class="fragment">The given polygon wraps the object (Interactive Frame) to the deform.
+<li class="fragment">DOF 1 event: Changes the number of vertices.
+<li class="fragment"> Motion events: translates the nearest vertex to the cursor, rotates the bounding body.
+
+V:
+##Application: Free Form Deformation 2D
+[2D](https://github.com/sechaparroc/Deformation) Deformation using MLS
+
+<figure>
+    <img height='300' src='fig/image_deformation.png' />
+    <figcaption>Bounding Polygon</figcaption>
+</figure>
+
+<!--
+<video data-autoplay src="vid/flock.ogv"></video>
+-->
+
+Related Paper: Image Deformation Using [MLS](http://www.cs.rice.edu/~jwarren/research/mls.pdf)
+
+
+V:
+##Interactive Tool : Joint Constraint Slider - Kinematics
+
+<li class="fragment">Usage of an auxiliary scene to limit the values of a DOF 1 Joint. 
+<li class="fragment">The circular slider informations is related with the selected bone (min, max, current, and stable values).
+<li class="fragment">Motion events overrides to allow just the rotation of a pointer when is selected (grabs Input is also override)
+
+V:
+##Application: Inverse Kinematics 
+Hierarchical Kinematic Model [2D](https://github.com/sechaparroc/Kinematics-Laplacian) and [3D](https://github.com/sechaparroc/Kinematics-Laplacian-3D).
+
+<video data-autoplay src="vid/DLS_3D.mp4"></video>
+
+Related Paper: Weigthed Real Time [IK](https://staffwww.dcs.shef.ac.uk/people/S.Maddock/publications/MeredithMaddock2004_GDTW.pdf)
+
+
+H:
+
 ## Roadmap
 
 <li class="fragment"> Short term: Release _Proscene3_ -> JS and Android port
@@ -613,3 +770,9 @@ H:
 <li class="fragment"> February 2017: Release of the curse materials: software + documentation
 
 //TODO possible Collaborations pending to be described
+
+
+
+
+
+
