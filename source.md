@@ -55,7 +55,7 @@ an advanced task can be accomplished by the
 framework and if so, how.
 * Software maintenance and extensibility, such as
 when adding new hardware and/or application
-user-defined actions
+user-defined callback routines
 
 V:
 
@@ -74,23 +74,30 @@ For a relatively recent survey please refer to: "A Survey of Interaction Techniq
 V:
 
 ## Goal: Interactivity
-### Viewpoint manipulation
+### Viewpoint manipulation: 3rd person
 
-<video data-autoplay src="vid/flock.ogv"></video>
+<video controls data-autoplay src="vid/flock.ogv"></video>
+
+V:
+
+## Goal: Interactivity
+### Viewpoint manipulation: HID's
+
+<video controls data-autoplay src="vid/kinect.webm"></video>
 
 V:
 
 ## Goal: Interactivity
 ### Picking & Manipulation -> select & interaction
 
-<video data-autoplay src="vid/creators.mp4"></video>
+<video controls data-autoplay src="vid/creators.mp4"></video>
 
 V:
 
 ## Goal: Interactivity
 ### Application Control -> 'post-'WIMP interaction metaphors
 
-<video data-autoplay src="vid/app_ctrl.ogv"></video>
+<video controls data-autoplay src="vid/app_ctrl.ogv"></video>
 
 V:
 
@@ -167,7 +174,7 @@ public interface Grabber {
 	/**
 	 * Defines how the application object should behave
 	 * according to a given BogusEvent, which may hold
-	 * a user-defined action.
+	 * a user-defined callback routine.
 	 */
 	void performInteraction(BogusEvent event);
 }
@@ -268,17 +275,14 @@ V:
 protected KeyboardEvent currentEvent;
 
 public void keyEvent(processing.event.KeyEvent e) {
-    press = e.getAction() == processing.event.KeyEvent.PRESS;
-    release = e.getAction() == processing.event.KeyEvent.RELEASE;
-    
     // event reduction Processing -> BogusEvent
     currentEvent = new KeyboardEvent(e.getModifiers(), e.getKey());
-    if (press)
+    if (e.getAction() == processing.event.KeyEvent.PRESS)
       // update only on press
       updateTrackedGrabber(currentEvent);
 
     // always handle
-    handle(release ? currentEvent.flush() : currentEvent.fire());
+    handle(currentEvent);
   }
 ```
 
@@ -356,9 +360,13 @@ V:
 <li class="fragment"> Multi-language (java + android + js) = Java-based implementation + single-threaded + No-dependencies
 <li class="fragment"> Which means it can easily be plugged into any third-party visual computing application
 <li class="fragment"> A wide scope of interactive applications
-<li class="fragment"> Simple to very complex input setups, even allowing concurrency of input events on application objects
-<li class="fragment"> Software maintenance and extensibility, such as when adding new hardware and/or application user-defined actions
+<li class="fragment"> Simple to very complex input setups
+<li class="fragment"> Software maintenance and extensibility
 <li class="fragment"> Check out the [bias wiki](https://github.com/nakednous/bias/wiki)
+
+N:
+* even allowing concurrency of input events on application objects
+* such as when adding new hardware and/or application user-defined callback routines
 
 H:
 
@@ -445,7 +453,7 @@ V:
 
 [Catmull Rom splines](https://en.wikipedia.org/wiki/Cubic_Hermite_spline#Catmull.E2.80.93Rom_spline) key frames
 
-<video data-autoplay src="vid/just_cause.webm"></video>
+<video controls data-autoplay src="vid/just_cause.webm"></video>
 <!-- .element: class="fragment" data-fragment-index="1"-->
 
 V:
@@ -545,7 +553,7 @@ V:
 V:
 
 ## Proscene3
-### Envisaged interactive scenarios: Custom Actions
+### Envisaged interactive scenarios: Custom Callback Routines
 
 ```java
   public void setup() {
@@ -556,7 +564,7 @@ V:
 V:
 
 ## Proscene3
-### Envisaged interactive scenarios: Custom Actions
+### Envisaged interactive scenarios: Custom Callback Routines
 
 ```java
   public void setup() {
@@ -567,6 +575,48 @@ V:
     frame.screenRotate(event);
   }
 ```
+
+V:
+
+## Proscene3
+### Envisaged interactive scenarios: MultiTouch Agent
+#### DOF6 Gestures:
+
+```java
+  DRAG_ONE_ID
+  DRAG_TWO_ID
+  DRAG_THREE_ID
+  TURN_TWO_ID
+  TURN_THREE_ID
+  PINCH_TWO_ID
+  PINCH_THREE_ID
+  OPPOSABLE_THREE_ID
+```
+//TODO: define DRAG/TURN/PINCH and OPPOSABLE using figures!
+
+V:
+
+## Proscene3
+### Envisaged interactive scenarios: MultiTouch Agent
+#### DOF3 & DOF6 Default callback routines
+
+```java
+  hinge
+  translateRotateXYZ
+  translateXYZ
+  rotateXYZ
+```
+
+N:
+Apart from DOF1 and DOF2 default callback routines
+
+V:
+
+## Proscene3
+### Envisaged interactive scenarios: MultiTouch Agent
+#### Demo
+
+//TODO add a video here highlighting in text the above callback routines!
 
 V:
 
@@ -642,7 +692,7 @@ V:
 ## Demo: Deformation 2d & 3D
 [2D](https://github.com/sechaparroc/Deformation) and [3D](https://github.com/sechaparroc/Deformation3D) Deformation
 
-<video data-autoplay src="vid/deformation.mp4"></video>
+<video controls data-autoplay src="vid/deformation.mp4"></video>
 
 
 
@@ -693,7 +743,7 @@ Is a typical model used in Kinematics. A Bone is related to a Joint that provide
 V:
 ## Demo: Forward Kinematics 
 Hierarchical Kinematic Model [2D](https://github.com/sechaparroc/Kinematics-Laplacian) and [3D](https://github.com/sechaparroc/Kinematics-Laplacian-3D).
-<video data-autoplay src="vid/kinematics.mp4"></video>
+<video controls data-autoplay src="vid/kinematics.mp4"></video>
 
 V:
 ## Demo: Forward Kinematics 
@@ -727,7 +777,7 @@ V:
 ## Demo: Inverse Kinematics 
 Kinematics [2D](https://github.com/sechaparroc/Kinematics-Laplacian) and [3D](https://github.com/sechaparroc/Kinematics-Laplacian-3D).
 
-<video data-autoplay src="vid/DLS_3D.mp4"></video>
+<video controls data-autoplay src="vid/DLS_3D.mp4"></video>
 
 V:
 
@@ -742,7 +792,7 @@ V:
 
 ## Demo: Artificial Life Aquarium
 
-<video data-autoplay src="vid/Aquarium.mp4"></video>
+<video controls data-autoplay src="vid/Aquarium.mp4"></video>
 
 
 H:
