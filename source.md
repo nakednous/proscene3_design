@@ -583,144 +583,166 @@ H:
 ### Interactive Tools and Applications
 
 <li class="fragment"> Deformation of 2D images and 3D meshes
-<li class="fragment"> Forward Kinematic Hierarchical Model
-<li class="fragment"> Inverse Kinematics (Jacobian Pseudoinverse)
+<li class="fragment"> Forward Kinematics Hierarchical Model
+<li class="fragment"> Inverse Kinematics
 <li class="fragment"> Artificial Life Aquarium
 
-//TODO: Organizar a partir de aca empleando este indice
-//por ej., reemplazar flow por Deformation of 2D images and 3D meshes
-
 V:
 
-## Demo: Deformation of 2D images and 3D meshes
-
-<li class="fragment"> An input is given: 3D mesh or 2D image along with the basic pose information.
+## Demo: Deformation 2d & 3D
 <figure>
-    <img height='300' src='fig/interactive_1.png' />
-    <figcaption>Input</figcaption>
+    <img height='500' src='fig/deformation_1.png' />
+    <figcaption>Flow</figcaption>
 </figure>
 
-V:
-
-##Interactive Application: Flow
-<li class="fragment"> Manipulation of information to perform the desired action.
-<figure>
-    <img height='300' src='fig/interactive_2.png' />
-    <figcaption>User manipulation</figcaption>
-</figure>
 
 V:
 
-##Interactive Application: Flow
-<li class="fragment"> Desired output is obtained.
-<figure>
-    <img height='300' src='fig/interactive_3.png' />
-    <figcaption>Output</figcaption>
-</figure>
-
-V:
-
-##Interactive Tools and Applications
-
+## Demo: Deformation 2d & 3D
+### Interactive Tools
 <li class="fragment"> There are required  tools with which the user could interact that allows to relate some action with a specific region of the image/mesh input (BIAS).
 <li class="fragment"> We extend the class interactive Frame (Dandelion) to associate to them information about the image/mesh.
 
 V:
 
-##Interactive Tools and Applications
+## Demo: Deformation 2d & 3D
 
 <figure>
-    <img height='300' src='fig/interactive_4.png' />
+    <img height='500' src='fig/interactive_tool.png' />
     <figcaption>Interactive Tool</figcaption>
 </figure>
 
 V:
 
-##Interactive Tool : Control Point
-<li class="fragment"> A transformation  (e.g Rotation, translation)  (B) is related to a given point ( A) in the space (defined by a local coordinate system).
-<li class="fragment"> If the origin (A) is grabbed a motion action is applied to the origin and the image points.
-<li class="fragment"> If the image (B) is grabbed the transformation is applied just to the image point (B) (Local coordinate space)
+## Demo: Deformation 2d & 3D
 
-V:
-##Application: Free Form Deformation 3D
-[2D](https://github.com/sechaparroc/Deformation) and [3D](https://github.com/sechaparroc/Deformation3D) deformation using MLS
-
-<!---
-<video data-autoplay src="vid/flock.ogv"></video>
--->
 <figure>
-    <img height='300' src='fig/interactive_6.png' />
-    <figcaption>Free Form Deformation</figcaption>
+    <img height='400' src='fig/deformation_2.png' />
+    <figcaption>Control Points</figcaption>
 </figure>
 
 
-Related Paper: Image Deformation Using [MLS](http://www.cs.rice.edu/~jwarren/research/mls.pdf)
-
-
-V:
-
-##Interactive Tool : Bone - Hierarchical Kinematic Model
-<li class="fragment"> Is a typical model used in Kinematics. A Bone is related to a Joint that provides DOF 3.
-<li class="fragment"> Usage of local coordinates and hierarchy (interactive Frames) 
-<li class="fragment"> Overrided ClickEvent to add or delete Bones.
-<li class="fragment"> DOF 1 events overrided for other purposes: (Weight, Width, enable/disable  end effector).
+A transformation  (B) is related to a given point (A)
 
 V:
-##Interactive Tool: Bone 
+
+## Demo: Deformation 2d & 3D
+
 <figure>
-    <img height='300' src='fig/interactive_5.png' />
+    <img height='400' src='fig/deformation_3.png' />
+    <figcaption>Bounding Body</figcaption>
+</figure>
+
+
+A deformation performed to a regular polygon is applied to the input object
+
+
+
+V:
+## Demo: Deformation 2d & 3D
+[2D](https://github.com/sechaparroc/Deformation) and [3D](https://github.com/sechaparroc/Deformation3D) Deformation
+
+<video data-autoplay src="vid/deformation.mp4"></video>
+
+
+
+
+V:
+## Demo: Deformation 2d & 3D
+### Related Papers
+<li class="fragment"> Schaefer S, McPhaill T, Warren J. [Image Deformation Using Moving Least Squares](http://faculty.cs.tamu.edu/schaefer/research/mls.pdf)
+<li class="fragment"> Sorkine O, Cohen D, Lipman Y, Alexa M, Rossl C, Seidel H. [Laplacian Surface Editing](http://www.cs.berkeley.edu/~jrs/meshpapers/SCOLARS.pdf).
+
+
+V:
+
+## Demo: Forward Kinematics 
+<figure>
+    <img height='500' src='fig/kinematics_1.png' />
+    <figcaption>Flow</figcaption>
+</figure>
+
+
+V:
+
+## Demo: Forward Kinematics 
+<figure>
+    <img height='500' src='fig/interactive_tool.png' />
+    <figcaption>Interactive Tool</figcaption>
+</figure>
+
+
+V:
+
+## Demo: Forward Kinematics 
+<figure>
+    <img height='300' src='fig/kinematics_2.png' />
     <figcaption>Hierarchical Kinematic Model</figcaption>
 </figure>
 
 V:
-##Application: Kinematics
-Hierarchical Kinematic Model [2D](https://github.com/sechaparroc/Kinematics-Laplacian) and [3D](https://github.com/sechaparroc/Kinematics-Laplacian-3D).
 
-<video data-autoplay src="vid/skinning_3D.mp4"></video>
-
-V:
-##Application: Forward And Inverse Kinematics
-<li class="fragment"> Introduction to [Inverse Kinematics](http://www.math.ucsd.edu/~sbuss/ResearchWeb/ikmethods/iksurvey.pdf)
-<li class="fragment"> Selectively Damped Least Squares for [Inverse Kinematics](http://www.math.ucsd.edu/~sbuss/ResearchWeb/ikmethods/SdlsPaper.pdf)
-<li class="fragment"> Mesh Deformation and [Laplacian Surface Editing](http://www.cs.berkeley.edu/~jrs/meshpapers/SCOLARS.pdf)
-V:
-##Interactive Tool : Bounding Body - Free Form Deformation
-
-<li class="fragment">Usage of an auxiliary scene to deform a regular polygon. 
-<li class="fragment">The given polygon wraps the object (Interactive Frame) to the deform.
-<li class="fragment">DOF 1 event: Changes the number of vertices.
-<li class="fragment"> Motion events: translates the nearest vertex to the cursor, rotates the bounding body.
-
-V:
-##Application: Free Form Deformation 2D
-[2D](https://github.com/sechaparroc/Deformation) Deformation using MLS
+## Demo: Forward Kinematics 
 
 <figure>
-    <img height='300' src='fig/image_deformation.png' />
-    <figcaption>Bounding Polygon</figcaption>
+    <img height='400' src='fig/kinematics_3.png' />
 </figure>
 
-<!--
-<video data-autoplay src="vid/flock.ogv"></video>
--->
-
-Related Paper: Image Deformation Using [MLS](http://www.cs.rice.edu/~jwarren/research/mls.pdf)
-
+Is a typical model used in Kinematics. A Bone is related to a Joint that provides DOF 3. (local coordinates and hierarchy) 
 
 V:
-##Interactive Tool : Joint Constraint Slider - Kinematics
-
-<li class="fragment">Usage of an auxiliary scene to limit the values of a DOF 1 Joint. 
-<li class="fragment">The circular slider informations is related with the selected bone (min, max, current, and stable values).
-<li class="fragment">Motion events overrides to allow just the rotation of a pointer when is selected (grabs Input is also override)
-
-V:
-##Application: Inverse Kinematics 
+## Demo: Forward Kinematics 
 Hierarchical Kinematic Model [2D](https://github.com/sechaparroc/Kinematics-Laplacian) and [3D](https://github.com/sechaparroc/Kinematics-Laplacian-3D).
+<video data-autoplay src="vid/kinematics.mp4"></video>
+
+V:
+## Demo: Forward Kinematics 
+### Related Papers
+<li class="fragment"> Buss S. [Introduction to Inverse Kinematics](http://www.math.ucsd.edu/~sbuss/ResearchWeb/ikmethods/iksurvey.pdf)
+<li class="fragment"> Sorkine O, Cohen D, Lipman Y, Alexa M, Rossl C, Seidel H. [Laplacian Surface Editing](http://www.cs.berkeley.edu/~jrs/meshpapers/SCOLARS.pdf)
+<li class="fragment"> University Of California, Computer Animation Course. [Skinning](http://graphics.ucsd.edu/courses/cse169_w05/3-Skin.htm)
+
+
+V:
+
+## Demo: Inverse Kinematics 
+<figure>
+    <img height='500' src='fig/ikinematics_1.png' />
+    <figcaption>Flow</figcaption>
+</figure>
+
+V:
+
+## Demo: Inverse Kinematics 
+
+<figure>
+    <img height='400' src='fig/ikinematics_2.png' />
+</figure>
+
+It is required to relate actions for setting some parameters with BIAS events.
+
+
+V:
+
+## Demo: Inverse Kinematics 
+Kinematics [2D](https://github.com/sechaparroc/Kinematics-Laplacian) and [3D](https://github.com/sechaparroc/Kinematics-Laplacian-3D).
 
 <video data-autoplay src="vid/DLS_3D.mp4"></video>
 
-Related Paper: Weigthed Real Time [IK](https://staffwww.dcs.shef.ac.uk/people/S.Maddock/publications/MeredithMaddock2004_GDTW.pdf)
+V:
+
+## Demo: Inverse Kinematics 
+### Related Papers
+<li class="fragment"> Buss S. [Introduction to Inverse Kinematics](http://www.math.ucsd.edu/~sbuss/ResearchWeb/ikmethods/iksurvey.pdf)
+<li class="fragment"> Buss S, Kim J. [Selectively Damped Least Squares for Inverse Kinematics](http://www.math.ucsd.edu/~sbuss/ResearchWeb/ikmethods/SdlsPaper.pdf)
+<li class="fragment"> Meredith M, Maddock S. [Weighted Real-Time Inverse Kinematics](https://staffwww.dcs.shef.ac.uk/people/S.Maddock/publications/MeredithMaddock2004_GDTW.pdf)
+
+
+V:
+
+## Demo: Artificial Life Aquarium
+
+<video data-autoplay src="vid/Aquarium.mp4"></video>
 
 
 H:
