@@ -20,20 +20,19 @@ H:
 
 # Proscene3 Design
 
-Jean Pierre Charalambos
+Jean Pierre Charalambos & Sebastian Chaparro
 
 H:
 
 # Index
 
- 1. Goal <!-- .element: class="fragment" data-fragment-index="1"-->
- 2. Design<!-- .element: class="fragment" data-fragment-index="2"-->
- 3. BIAS<!-- .element: class="fragment" data-fragment-index="3"-->
- 4. Dandelion<!-- .element: class="fragment" data-fragment-index="4"-->
- 5. Proscene3<!-- .element: class="fragment" data-fragment-index="5"-->
- 6. Demo<!-- .element: class="fragment" data-fragment-index="6"-->
- 7. Roadmap<!-- .element: class="fragment" data-fragment-index="7"-->
- 
+ 1. Goal
+ 2. Design
+ 3. Demo
+ 4. Roadmap
+ 5. Future work
+
+
 H:
 
 ## Goal
@@ -78,6 +77,10 @@ V:
 
 <video controls data-autoplay src="vid/flock.ogv"></video>
 
+N:
+
+Example included in the std distro
+
 V:
 
 ## Goal: Interactivity
@@ -85,12 +88,20 @@ V:
 
 <video controls data-autoplay src="vid/kinect.webm"></video>
 
+N:
+
+part of a recent usability comparative study using non-std interaction techniques M. Sc. thesis
+
 V:
 
 ## Goal: Interactivity
 ### Picking & Manipulation -> select & interaction
 
-<video controls data-autoplay src="vid/creators.mp4"></video>
+<video controls data-autoplay src="vid/cut.mp4"></video>
+
+N:
+
+Audio reactive multitouch table screen app, in collaboration with ['the creators'](https://vimeo.com/25224777), University of Sydney - Information Visualisation studio
 
 V:
 
@@ -98,6 +109,10 @@ V:
 ### Application Control -> 'post-'WIMP interaction metaphors
 
 <video controls data-autoplay src="vid/app_ctrl.ogv"></video>
+
+N:
+
+Example included in the std distro
 
 V:
 
@@ -111,11 +126,17 @@ It is also about:
 H:
 
 ## Design
+### _Onion_ architecture
 
 <figure>
     <img height='400' src='fig/packages.png' />
     <figcaption>Packages</figcaption>
 </figure>
+
+N:
+* Onion architecture controls coupling
+* All code can depend on core layers, but no the other way around
+* Layers: *git subtrees*
 
 H:
 
@@ -141,6 +162,10 @@ V:
     <figcaption>Communication channel</figcaption>
 </figure>
 
+N:
+
+Grabber: user-space object possibly having a visual representation
+
 V:
 
 ## Bias: User gestures
@@ -149,6 +174,10 @@ V:
     <img height='500' src='fig/arch_4.png' />
     <figcaption>Input sources</figcaption>
 </figure>
+
+N:
+
+(B)rain (C)omputer (I)nterface
 
 V:
 
@@ -192,6 +221,10 @@ V:
 Bogus event in that it is a high-level (soft) event which should be reduced from a low-level event
 <!-- .element: class="fragment" data-fragment-index="1"-->
 
+N:
+
+List some properties: shortcuts, multi-tempi & types
+
 V:
 
 ## BIAS: BogusEvents
@@ -211,6 +244,13 @@ V:
 <li class="fragment"> ```flushed()```: event termination
 <li class="fragment"> ```!fired() && !flushed()```: event execution (default state)
 
+N:
+
+Example:
+* fired() -> mouse pressed
+* flushed() -> mouse released
+* !fired() && !flushed() -> mouse dragged
+
 V:
 
 ## BIAS: BogusEvent
@@ -228,6 +268,10 @@ _BogusEvent_ instances are of the following types:
    * DOF2Event
    * DOF3Event
    * DOF6Event
+   
+N:
+
+BogisEvents can easily be extended to other types
 
 V:
 
@@ -248,6 +292,11 @@ V:
     <figcaption>Listening mechanisms</figcaption>
 </figure>
 
+N:
+
+1. Polling: Gesture -> InputHandler -> Agent
+2. Application's own Listening mechanism: Gesture -> Agent, e.g., p5 mouseEvent(processing.event.MouseEvent e) method registration
+
 V:
 
 ## Bias: Agent
@@ -257,6 +306,11 @@ V:
     <figcaption>updateTrackedGrabber()</figcaption>
 </figure>
 
+N:
+
+1. Agent queries each object in the grabbers() collection to check if the checkIfGrabsInput(BogusEvent) condition is met.
+2. The first object meeting the condition will be set as the inputGrabber() and returned.
+
 V:
 
 ## Bias: Agent
@@ -265,6 +319,12 @@ V:
     <img height='500' src='fig/seq_b2.png' />
     <figcaption>handle()</figcaption>
 </figure>
+
+N:
+
+Enqueues an EventGrabberTuple(event, inputGrabber()) on the InputHandler eventTupleQueue(), 
+enabling a call on the inputGrabber() performInteraction(BogusEvent) method (which is scheduled
+for execution till the end of this main event loop iteration)
 
 V:
 
@@ -285,6 +345,13 @@ public void keyEvent(processing.event.KeyEvent e) {
     handle(currentEvent);
   }
 ```
+
+N:
+
+1. Processing keyEvent registration
+1. Reduction is trivial
+2. updateTrackedGrabber() when key is pressed
+3. handle() all key events
 
 V:
 
@@ -307,6 +374,11 @@ public class GrabberObject implements Grabber {
 ```
 
 Check out the [simple callback example](https://github.com/nakednous/bias/blob/master/examples/SimpleCallback/SimpleCallback.pde)
+
+N:
+
+* checkIfGrabsInput: defines the rules to set the application object as an input grabber.
+* performInteraction: defines how the application object should behave according to a given BogusEvent
 
 V:
 
@@ -356,16 +428,18 @@ V:
 
 ## BIAS: Conclusions
 
-<li class="fragment"> Target audience: Gesture parsing programming, e.g., I/O & Machine learning developers
-<li class="fragment"> Multi-language (java + android + js) = Java-based implementation + single-threaded + No-dependencies
-<li class="fragment"> Which means it can easily be plugged into any third-party visual computing application
+<li class="fragment"> Target audience: Gesture parsing programming
+<li class="fragment"> Lightweight Java-based implementation + Single-threaded + No-dependencies
+<li class="fragment"> Multi-language support
 <li class="fragment"> A wide scope of interactive applications
-<li class="fragment"> Simple to very complex input setups
 <li class="fragment"> Software maintenance and extensibility
-<li class="fragment"> Check out the [bias wiki](https://github.com/nakednous/bias/wiki)
 
 N:
-* even allowing concurrency of input events on application objects
+
+* target audience: I/O & Machine learning developers
+* can easily be plugged into any third-party visual computing application
+* mult-lang: java + android + js (via google web toolkit transpiler)
+* ranging simple to very complex setups, even allowing concurrency of input events on application objects
 * such as when adding new hardware and/or application user-defined callback routines
 
 H:
@@ -417,6 +491,11 @@ V:
   frame.setReferenceFrame(parent);
 ```
 
+N:
+
+The collection of frames() forms a scene-graph of transformations
+which only requires that each frame keeps a reference to its parent
+
 V:
 
 ## Dandelion
@@ -456,6 +535,10 @@ V:
 <video controls data-autoplay src="vid/just_cause.webm"></video>
 <!-- .element: class="fragment" data-fragment-index="1"-->
 
+N:
+
+In collaboration with [square enix](https://www.youtube.com/watch?v=hEoxaGkNcrg&feature=player_embedded#at=19)
+
 V:
 
 ## Dandelion
@@ -470,7 +553,7 @@ V:
 ## Dandelion
 ### AbstractScene: high-level scene-graph API
 
-High-level secne handler which manages:
+High-level scene handler which manages:
 
 <li class="fragment"> Visual hints
 <li class="fragment"> Traversal algorithm: ```for (GenericFrame frame : leadingFrames()) visitFrame(frame)```
@@ -672,7 +755,7 @@ V:
 </figure>
 
 
-A transformation  (B) is related to a given point (A)
+A transformation (B) is related to a given point (A)
 
 V:
 
@@ -797,16 +880,22 @@ V:
 
 H:
 
-## Roadmap
+## Future work
+### Roadmap
 
 <li class="fragment"> Short term: Release _Proscene3_ -> JS and Android port
-<li class="fragment"> Middle term: _Proscene3_ cycle -> Collaborations (as with most cycles)
 <li class="fragment"> February 2017: Release of the curse materials: software + documentation
 
-//TODO possible Collaborations pending to be described
+V:
 
+## Future work
+### Collaborations
 
+<li class="fragment"> Use the library
+<li class="fragment"> Adapt/extend the funcitonality 
+<li class="fragment"> Report experiences at the [Processing forum](https://forum.processing.org/two/) using the *proscene* tag
 
+N:
 
-
-
+* Thank you!
+* Q & A
