@@ -46,15 +46,15 @@ in the simplest possible way:
 <li class="fragment"> customizability
 
 N:
-* API simplicity may be evaluated from the set of
-instructions needed to accomplish a standard task
-over a given domain
+* API simplicity is related to the evaluation of the
+set of instructions needed to accomplish a standard task
+over a given domain -> 'the less instructions the simple the API is'
 * API flexibility is related to as whether or not
 an advanced task can be accomplished by the
 framework and if so, how.
-* Software maintenance and extensibility, such as
-when adding new hardware and/or application
-user-defined callback routines
+* Customizability, is related to Software maintenance
+and extensibility,such as when adding new hardware and/or
+application user-defined callback routines
 
 V:
 
@@ -101,7 +101,7 @@ V:
 
 N:
 
-Audio reactive multitouch table screen app, in collaboration with ['the creators'](https://vimeo.com/25224777), University of Sydney - Information Visualisation studio
+Audio reactive multitouch table screen app, in collaboration with ['the creators'](https://vimeo.com/25224777) Information Visualisation studio, University of Sydney
 
 V:
 
@@ -120,8 +120,13 @@ V:
 
 It is also about:
 
-<li class="fragment"> Creating academic materials: software + documentation (API-docs + html5 e-book, tutorials & wikis)
-<li class="fragment"> Appropriation through collaboration: open-sourcing the materials to encourage hacking them
+<li class="fragment"> Creating academic materials
+<li class="fragment"> Appropriation through collaboration
+
+N:
+
+* software + documentation (API-docs + html5 e-book, tutorials & wikis)
+* open-sourcing the materials to encourage hacking them
 
 H:
 
@@ -196,14 +201,13 @@ V:
 public interface Grabber {
 	/**
 	 * Defines the rules to set the application object as
-	 * an input grabber.
+	 * an input grabber according to a given BogusEvent
 	 */
 	boolean checkIfGrabsInput(BogusEvent event);
 
 	/**
 	 * Defines how the application object should behave
-	 * according to a given BogusEvent, which may hold
-	 * a user-defined callback routine.
+	 * according to a given BogusEvent
 	 */
 	void performInteraction(BogusEvent event);
 }
@@ -218,12 +222,10 @@ V:
     <figcaption>Input sources</figcaption>
 </figure>
 
-Bogus event in that it is a high-level (soft) event which should be reduced from a low-level event
-<!-- .element: class="fragment" data-fragment-index="1"-->
-
 N:
 
-List some properties: shortcuts, multi-tempi & types
+* Bogus event in that it is a high-level (soft) event which should be reduced from a low-level event
+* List some properties: shortcuts, multi-tempi & types
 
 V:
 
@@ -232,8 +234,10 @@ V:
 
 > A gesture identifier
 
-Example: The mouse button + modifier mask when a dragging gesture is taking place
-<!-- .element: class="fragment" data-fragment-index="1"-->
+N:
+
+Example:
+* the mouse button + modifier mask when a dragging gesture is taking place
 
 V:
 
@@ -247,9 +251,9 @@ V:
 N:
 
 Example:
-* fired() -> mouse pressed
-* flushed() -> mouse released
-* !fired() && !flushed() -> mouse dragged
+* ```fired()``` -> mouse pressed
+* ```flushed()``` -> mouse released
+* ```!fired() && !flushed()``` -> mouse dragged
 
 V:
 
@@ -271,7 +275,7 @@ _BogusEvent_ instances are of the following types:
    
 N:
 
-BogisEvents can easily be extended to other types
+BogusEvents can easily be extended to other types
 
 V:
 
@@ -294,8 +298,9 @@ V:
 
 N:
 
+The InputHandler object is the high level package handler which holds a collection of agents()
 1. Polling: Gesture -> InputHandler -> Agent
-2. Application's own Listening mechanism: Gesture -> Agent, e.g., p5 mouseEvent(processing.event.MouseEvent e) method registration
+2. Application's own Listening mechanism: Gesture -> Agent, e.g., p5 ```mouseEvent(processing.event.MouseEvent e)``` method registration
 
 V:
 
@@ -322,9 +327,12 @@ V:
 
 N:
 
-Enqueues an EventGrabberTuple(event, inputGrabber()) on the InputHandler eventTupleQueue(), 
-enabling a call on the inputGrabber() performInteraction(BogusEvent) method (which is scheduled
-for execution till the end of this main event loop iteration)
+* The InputHandler has an event dispatcher queue of
+EventGrabberTuple's.
+1. The agent enqueues an ```EventGrabberTuple(event, inputGrabber())``` on the
+InputHandler ```eventTupleQueue()```.
+2. At the end of main event loop the ```performInteraction(BogusEvent)```
+method is then finally call on the ```inputGrabber()```
 
 V:
 
@@ -349,9 +357,9 @@ public void keyEvent(processing.event.KeyEvent e) {
 N:
 
 1. Processing keyEvent registration
-1. Reduction is trivial
-2. updateTrackedGrabber() when key is pressed
-3. handle() all key events
+1. Here reducing the procesing key-event into the KeyboardEvent bogus-event is trivial
+2. ```updateTrackedGrabber()``` when key is pressed
+3. ```handle()``` all key events
 
 V:
 
@@ -373,12 +381,10 @@ public class GrabberObject implements Grabber {
 }
 ```
 
-Check out the [simple callback example](https://github.com/nakednous/bias/blob/master/examples/SimpleCallback/SimpleCallback.pde)
-
 N:
 
-* checkIfGrabsInput: defines the rules to set the application object as an input grabber.
-* performInteraction: defines how the application object should behave according to a given BogusEvent
+* ```checkIfGrabsInput()``` -> Defines the rules to set the application object as the input grabber according to a given BogusEvent
+* ```performInteraction()``` -> Defines how the application object should behave according to a given BogusEvent
 
 V:
 
@@ -493,7 +499,7 @@ V:
 
 N:
 
-The collection of frames() forms a scene-graph of transformations
+The collection of ```frames()``` forms a scene-graph of transformations
 which only requires that each frame keeps a reference to its parent
 
 V:
@@ -523,7 +529,8 @@ V:
 
 N:
 
-For the scenegraph we need to keep references to frame children. We did it internally, preserving the same API (setReferenceFrame does it all)
+For the scenegraph we need to keep references to frame children.
+We did it internally, preserving the same API -- a single ```setReferenceFrame()``` (overriden) call does it all
 
 V:
 
