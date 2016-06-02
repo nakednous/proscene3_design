@@ -22,16 +22,16 @@ H:
 
 Jean Pierre Charalambos & Sebastian Chaparro
 
+National University of Colombia
+
 H:
 
-# Index
+# Outline
 
  1. Goal
  2. Design
  3. Demo
- 4. Roadmap
- 5. Future work
-
+ 4. Future work
 
 H:
 
@@ -42,19 +42,20 @@ H:
 in the simplest possible way:
 <!-- .element: class="fragment" data-fragment-index="1"-->
 
-<li class="fragment"> api simplicity & flexibility
+<li class="fragment"> api simplicity
+<li class="fragment"> api flexibility
 <li class="fragment"> customizability
 
 N:
-* API simplicity is related to the evaluation of the
-set of instructions needed to accomplish a standard task
+
+... which may be evaluated by:
+* (API simplicity), that relates the set of instructions needed to accomplish a standard task
 over a given domain -> 'the less instructions the simple the API is'
-* API flexibility is related to as whether or not
-an advanced task can be accomplished by the
+* (API flexibility), that relates as to whether or not an advanced task can be accomplished by the
 framework and if so, how.
-* Customizability, is related to Software maintenance
-and extensibility,such as when adding new hardware and/or
-application user-defined callback routines
+* (Customizability), which relates software maintenance
+and extensibility, such as when adding new hardware and/or
+a new application user-defined actions
 
 V:
 
@@ -62,57 +63,66 @@ V:
 
 Universal interaction tasks:
 
- 1. 2D & 3D viewpoint manipulation <!-- .element: class="fragment" data-fragment-index="1"-->
- 2. Picking & Manipulation -> select & interaction <!-- .element: class="fragment" data-fragment-index="2"-->
- 3. Application Control -> 'post-'WIMP interaction metaphors <!-- .element: class="fragment" data-fragment-index="3"-->
+ 1. Viewpoint manipulation <!-- .element: class="fragment" data-fragment-index="1"-->
+ 2. Picking & Manipulation <!-- .element: class="fragment" data-fragment-index="2"-->
+ 3. Application Control <!-- .element: class="fragment" data-fragment-index="3"-->
 
-
-For a relatively recent survey please refer to: "A Survey of Interaction Techniques for Interactive 3D Environments", Jankowski et al., 2013 - STAR.
+"A Survey of Interaction Techniques for Interactive 3D Environments", Jankowski et al., 2013 - STAR.
 <!-- .element: class="fragment" data-fragment-index="4"-->
+
+N:
+
+To cope with the so called three universal interaction tasks for Interactive Environments, which are:
+
+1. Viewpoint manipulation in 3D as well as in 2D
+2. Object selection & Interaction
+3. Implementation of 'post-WIMP ((W)indows (I)cons (M)enus & (P)ointer) _interaction metaphors_
+
+Jankowski relatively recent survey provides a good starting point
 
 V:
 
 ## Goal: Interactivity
 ### Viewpoint manipulation: 3rd person
 
-<video controls data-autoplay src="vid/flock.ogv"></video>
+<video controls data-autoplay loop src="vid/flock.ogv"></video>
 
 N:
 
-Example included in the std distro
+This video shows a 3rd person camera control follow-up of the 'Boids' original famous 2D experiment [Craig Reynolds, 1986]. The example is included in the std distro
 
 V:
 
 ## Goal: Interactivity
 ### Viewpoint manipulation: HID's
 
-<video controls data-autoplay src="vid/kinect.webm"></video>
+<video controls data-autoplay loop src="vid/kinect.mp4"></video>
 
 N:
 
-part of a recent usability comparative study using non-std interaction techniques M. Sc. thesis
+This video displays part of a recent usability comparative study using non-std interaction techniques. Developed as M. Sc. thesis
 
 V:
 
 ## Goal: Interactivity
 ### Picking & Manipulation -> select & interaction
 
-<video controls data-autoplay src="vid/cut.mp4"></video>
+<video controls data-autoplay loop src="vid/cut.mp4"></video>
 
 N:
 
-Audio reactive multitouch table screen app, in collaboration with ['the creators'](https://vimeo.com/25224777) Information Visualisation studio, University of Sydney
+This video shows an excerpt of an audio reactive multitouch tabletop screen app, developed in collaboration with ['the creators'](https://vimeo.com/25224777) Information Visualisation studio, University of Sydney
 
 V:
 
 ## Goal: Interactivity
 ### Application Control -> 'post-'WIMP interaction metaphors
 
-<video controls data-autoplay src="vid/app_ctrl.ogv"></video>
+<video controls data-autoplay loop src="vid/app_ctrl.ogv"></video>
 
 N:
 
-Example included in the std distro
+This video shows how the 3D shapes can easily be controled and manipulated with the 2D ones. The example is included in the std distro
 
 V:
 
@@ -125,8 +135,8 @@ It is also about:
 
 N:
 
-* software + documentation (API-docs + html5 e-book, tutorials & wikis)
-* open-sourcing the materials to encourage hacking them
+* Creating academic materials comprising software + documentation (API-docs + html5 e-book, tutorials & wikis)
+* Open-sourcing the materials to encourage hacking them
 
 H:
 
@@ -139,9 +149,8 @@ H:
 </figure>
 
 N:
-* Onion architecture controls coupling
-* All code can depend on core layers, but no the other way around
-* Layers: *git subtrees*
+
+We employ an 'onion architecture' which controls coupling: all code can depend on core layers (but no the other way around). Those layers are implemented as *git subtrees*
 
 H:
 
@@ -156,7 +165,11 @@ V:
 
 ## Bias: Package
 
-> Bogus Input Action Selector 
+> (B)ogus (I)nput (A)ction (S)elector
+
+N:
+
+Action = user-defined callback routine
 
 V:
 
@@ -169,7 +182,7 @@ V:
 
 N:
 
-Grabber: user-space object possibly having a visual representation
+Open up a communication channel between user gestures and grabber objects
 
 V:
 
@@ -182,7 +195,7 @@ V:
 
 N:
 
-(B)rain (C)omputer (I)nterface
+Such as ... (B)rain (C)omputer (I)nterface or any (H)uman (Interface) (D)evice
 
 V:
 
@@ -193,25 +206,26 @@ V:
     <figcaption>Pickable </figcaption>
 </figure>
 
+N:
+
+Grabbers are user-space objects possibly having a visual representation
+
 V:
 
 ## BIAS: Grabbers
 
 ```java
 public interface Grabber {
-	/**
-	 * Defines the rules to set the application object as
-	 * an input grabber according to a given BogusEvent
-	 */
 	boolean checkIfGrabsInput(BogusEvent event);
-
-	/**
-	 * Defines how the application object should behave
-	 * according to a given BogusEvent
-	 */
 	void performInteraction(BogusEvent event);
 }
 ```
+
+N:
+
+Grabbers have a very simple specification:
+1. Defines the rules to set the application object as an input grabber
+2. Defines how the application object should behave
 
 V:
 
@@ -224,8 +238,9 @@ V:
 
 N:
 
-* Bogus event in that it is a high-level (soft) event which should be reduced from a low-level event
-* List some properties: shortcuts, multi-tempi & types
+Input sources are represented by so called bogus events. An event is bogus in that it is a high-level (soft) event which should be reduced from a low-level event
+
+Lets see some bogus events features...
 
 V:
 
@@ -262,11 +277,11 @@ V:
 
 _BogusEvent_ instances are of the following types:
 
- * KeyboardEvent -> 't', 'U', or with modifiers: Shift + 'w'
+ * KeyboardEvent
  <!-- .element: class="fragment" data-fragment-index="1"-->
- * ClickEvent: -> aka "tap", 1,2,...n clicks. Supports modifiers
+ * ClickEvent
  <!-- .element: class="fragment" data-fragment-index="2"-->
- * MotionEvent -> kinematics & DOFs, abs/rel, speed
+ * MotionEvent
  <!-- .element: class="fragment" data-fragment-index="3"-->
    * DOF1Event
    * DOF2Event
@@ -275,17 +290,23 @@ _BogusEvent_ instances are of the following types:
    
 N:
 
-BogusEvents can easily be extended to other types
+* ... defining a single key stroke; or, a combo key stroke: single key stroke + modifier key
+* ... defining a "tap" event
+* ... defining the app kinematics & which are characterized by DOFs
 
 V:
 
 ## Bias: Agent
-### BogusEvent reduction
+### BogusEvent reduction object
 
 <figure>
     <img height='420' src='fig/arch_1a.png' />
     <figcaption>Collect and reduce input into a _BogusEvent_</figcaption>
 </figure>
+
+N:
+
+An agent is a BogusEvent reduction object. Its goal is to collect and reduce input into a _BogusEvent_
 
 V:
 
@@ -298,9 +319,26 @@ V:
 
 N:
 
-The InputHandler object is the high level package handler which holds a collection of agents()
-1. Polling: Gesture -> InputHandler -> Agent
-2. Application's own Listening mechanism: Gesture -> Agent, e.g., p5 ```mouseEvent(processing.event.MouseEvent e)``` method registration
+Agents provide 2 listening mechanisms:
+1. Polling, which is done throught the InputHandler (high-level package handler)
+2. Using the application's own listening mechanism
+
+V:
+
+## Bias: Agent
+### Message types sent to grabbers
+
+| Agent                         | Grabber                    |
+|-------------------------------|----------------------------|
+| ```updateTrackedGrabber()```  | ```checkIfGrabsInput()```  |
+| ```handle()```                | ```performInteraction()``` |
+
+N:
+
+* The *uTG* _agent_ call is related to the *cIGI* _grabber_ call
+* The *h* _agent_ call is related to the *pI* _grabber_ call
+
+lets see how
 
 V:
 
@@ -313,8 +351,9 @@ V:
 
 N:
 
-1. Agent queries each object in the grabbers() collection to check if the checkIfGrabsInput(BogusEvent) condition is met.
-2. The first object meeting the condition will be set as the inputGrabber() and returned.
+In the *uTG* case the
+1. Agent queries each object in the *grabbers* collection to check if the *cIGI* condition is met
+2. The first object meeting it will be set as application the inputGrabber() and returned
 
 V:
 
@@ -327,64 +366,11 @@ V:
 
 N:
 
-* The InputHandler has an event dispatcher queue of
-EventGrabberTuple's.
-1. The agent enqueues an ```EventGrabberTuple(event, inputGrabber())``` on the
+In the *h* case the
+1. The agent enqueues an ```EventGrabberTuple()``` on the
 InputHandler ```eventTupleQueue()```.
-2. At the end of main event loop the ```performInteraction(BogusEvent)```
-method is then finally call on the ```inputGrabber()```
-
-V:
-
-## BIAS: Example
-### Part 1: Implementing an agent
-
-```java
-protected KeyboardEvent currentEvent;
-
-public void keyEvent(processing.event.KeyEvent e) {
-    // event reduction Processing -> BogusEvent
-    currentEvent = new KeyboardEvent(e.getModifiers(), e.getKey());
-    if (e.getAction() == processing.event.KeyEvent.PRESS)
-      // update only on press
-      updateTrackedGrabber(currentEvent);
-
-    // always handle
-    handle(currentEvent);
-  }
-```
-
-N:
-
-1. Processing keyEvent registration
-1. Here reducing the procesing key-event into the KeyboardEvent bogus-event is trivial
-2. ```updateTrackedGrabber()``` when key is pressed
-3. ```handle()``` all key events
-
-V:
-
-## BIAS: example
-### Part 2: Implementing a grabber
-
-```java
-public class GrabberObject implements Grabber {
-    @Override
-    boolean checkIfGrabsInput(BogusEvent event) {
-        return withinShapeProjectionArea(event);
-    }
-    
-    @Override
-    void performInteraction(BogusEvent event) {
-        if ( ( event.shortcut().id() == LEFT ) )
-          callback_method(event);
-    }
-}
-```
-
-N:
-
-* ```checkIfGrabsInput()``` -> Defines the rules to set the application object as the input grabber according to a given BogusEvent
-* ```performInteraction()``` -> Defines how the application object should behave according to a given BogusEvent
+2. At the end of main event loop the *pI*
+method is then called on the ```inputGrabber()```
 
 V:
 
@@ -392,8 +378,7 @@ V:
 
 A [functional programming](https://en.wikipedia.org/wiki/Functional_programming) extension which parses the event in
 ```grabber.performInteraction(BogusEvent event)```
-to define _Shortcut_ to _Method_ bindings. To set it up just override
-the _grabber_ ```performInteraction``` method like this:
+to define _Shortcut_ to _Action_ bindings
 
 ```java
 @Override
@@ -403,12 +388,17 @@ public void performInteraction(BogusEvent event) {
 ```
 <!-- .element: class="fragment" data-fragment-index="1"-->
 
+N:
+
+1. ... to set it up just override
+the _grabber_ ```performInteraction``` method like this:
+
 V:
 
 ## BIAS
 ### Grabbers: Profile
 
-Profiles allow the following simple dialect:
+Profiles allow the following high-level simple dialect:
 
 ```java
 grabber.setMotionBinding(LEFT, "callback_method");
@@ -434,7 +424,7 @@ V:
 
 ## BIAS: Conclusions
 
-<li class="fragment"> Target audience: Gesture parsing programming
+<li class="fragment"> Target audience: Gesture parsing programmers
 <li class="fragment"> Lightweight Java-based implementation + Single-threaded + No-dependencies
 <li class="fragment"> Multi-language support
 <li class="fragment"> A wide scope of interactive applications
@@ -442,11 +432,11 @@ V:
 
 N:
 
-* target audience: I/O & Machine learning developers
-* can easily be plugged into any third-party visual computing application
-* mult-lang: java + android + js (via google web toolkit transpiler)
-* ranging simple to very complex setups, even allowing concurrency of input events on application objects
-* such as when adding new hardware and/or application user-defined callback routines
+* ... machine learning developers
+* ... can easily be plugged into any third-party visual computing application
+* ... java + android + js (but also 3rd party python and ruby ports are known to as)
+* ... ranging simple to very complex setups, even allowing concurrency of input events on application objects
+* ... such as when adding new hardware and/or user-defined actions
 
 H:
 
@@ -468,9 +458,15 @@ V:
 ## Dandelion
 ### Packages
 
-<li class="fragment"> *dandelion.geom* -> _Vec_, _Quat_, _Mat_ and _Frame_ (_Quat_ + _Vec_)
-<li class="fragment"> *dandelion.constraint* -> Apply constraints to _Frames_ to limit their motion
-<li class="fragment"> *dandelion.core* -> _GenericFrame_, _KeyFrameInterpolator_, _Eye_, and _AbstractScene_
+<li class="fragment"> *dandelion.geom*
+<li class="fragment"> *dandelion.constraint*
+<li class="fragment"> *dandelion.core* 
+
+N:
+
+* ... _Vec_, _Quat_, _Mat_ and _Frame_ (_Quat_ + _Vec_)
+* ... Apply constraints to _Frames_ to limit their motion
+* ... detailed shortly
 
 V:
 
@@ -505,32 +501,23 @@ which only requires that each frame keeps a reference to its parent
 V:
 
 ## Dandelion
-### Frame: Hierarchy
-
-```java
-  Frame frame = new Frame();
-  scene.pushModelView();
-  scene.applyModelView(frame.matrix());
-  // Draw your object here, in the local fr coordinate system.
-  scene.popModelView();
-```
-
-V:
-
-## Dandelion
 ### GenericFrame
 
-> A Frame Grabber (frame that implements the Grabber interface)
+> A Grabber Frame
 
-<li class="fragment"> Frames that are pickable and interactive
-<li class="fragment"> A frame is *generic* in that it can belong either to an object or to the Eye
-<li class="fragment"> Scene-graph: Allows top/down traversals of the frame hierarchy
-<li class="fragment"> third-person cam: A gFrame can be followed by another camera
+Features:
+
+<li class="fragment"> Generic
+<li class="fragment"> Scene-graph foundation
+<li class="fragment"> Third-person camera
 
 N:
 
-For the scenegraph we need to keep references to frame children.
-We did it internally, preserving the same API -- a single ```setReferenceFrame()``` (overriden) call does it all
+A Grabber Frame: a frame that implements the _Grabber_ interface -> Frames that are pickable and interactive
+
+* A _gF_ is *generic* in that it can belong either to an object or to the Eye
+* _gFs_ are organized in a tree-like structure allowing top/down traversals of the hierarchy
+* A _gF_ can be followed by another _gF_
 
 V:
 
@@ -539,21 +526,31 @@ V:
 
 [Catmull Rom splines](https://en.wikipedia.org/wiki/Cubic_Hermite_spline#Catmull.E2.80.93Rom_spline) key frames
 
-<video controls data-autoplay src="vid/just_cause.webm"></video>
+<video controls data-autoplay loop src="vid/just_cause.mp4"></video>
 <!-- .element: class="fragment" data-fragment-index="1"-->
 
 N:
 
-In collaboration with [square enix](https://www.youtube.com/watch?v=hEoxaGkNcrg&feature=player_embedded#at=19)
+Point cloud visualization of 11' player impact events in the videogame, Just Cause 2. Developed in collaboration with [Square Enix](https://www.youtube.com/watch?v=hEoxaGkNcrg&feature=player_embedded#at=19)
 
 V:
 
 ## Dandelion
 ### Eye
 
-<li class="fragment"> 2D (Window) & 3D (Camera)
-<li class="fragment"> Back-face culling
-<li class="fragment"> View-frustum made easy, while targetting the [z-Buffer precision](https://www.opengl.org/wiki/Depth_Buffer_Precision)
+A 2D (Window) & 3D (Camera), featuring:
+
+<li class="fragment"> Useful positioning tools
+<li class="fragment"> Simple bounding area/volume view
+<li class="fragment"> Back-face & view frustum culling
+<li class="fragment"> Stereo capabilities
+
+N:
+
+* ... which eases its placement
+* ... which is defined by a bounding ball, while targetting the [z-Buffer precision](https://www.opengl.org/wiki/Depth_Buffer_Precision)
+* ... supporting advanced interactive apps
+* ... just in time for the _android cardboard_
 
 V:
 
@@ -571,11 +568,15 @@ V:
 
 ## Dandelion: Conclusions
 
-<li class="fragment"> Target audience: programmers which want to build upon a scenegraph foundation
-<li class="fragment"> Multi-language (java + android + js) = Java-based implementation + single-threaded + No-dependencies simple
-and coherent scene-graph API
+<li class="fragment"> Target audience: scenegraph programmers
+<li class="fragment"> Multi-language
 <li class="fragment"> Those of BIAS
-<li class="fragment"> It can easily be plugged into any third-party visual computing application
+
+N:
+
+* ... programmers which want to build upon a (simple and coherent) scenegraph foundation
+* ... java + android + js (but also 3rd party python and ruby ports are known to as)
+* ... e.g., it can easily be plugged into any third-party visual computing application
 
 H:
 
@@ -590,9 +591,11 @@ V:
 
 ## Proscene3
 
-<li class="fragment"> Bridge between Dandelion and [Processing3](http://processing.org)
-<li class="fragment"> Seamless thorough integration between the two
-<li class="fragment"> Takes full advantage of Processing concise API and its advanced-rendering capabilities
+> Bridge between Dandelion and [Processing3](http://processing.org)
+
+N:
+
+... providing seamless thorough integration between the two, while taking full advantage of Processing main features such as its concise API and advanced-rendering capabilities
 
 V:
 
@@ -610,20 +613,30 @@ V:
 ## Proscene3
 ### Scene: high-level scene-graph API
 
-<li class="fragment"> Default rendering of shapes not already present in the Processing API, such hollow cylinder or cone
+<li class="fragment"> Default rendering of shapes not already present in the Processing API
 <li class="fragment"> Traversal algorithm: ```scene.drawFrames()```
-<li class="fragment"> InterativeFrames can be projected onto an arbritary number of (off-screen) graphics buffer (TODO shader examples)
+<li class="fragment"> InterativeFrames can be projected onto an arbritary number of (off-screen) graphics buffer
+
+N:
+
+* ... such hollow cylinder or cone
+* ... achieved with one simple line of code
+* ... e.g., minimaps
 
 V:
 
 ## Proscene3
-### Envisaged interactive scenarios: Custom Appearance
+### Envisaged interactive scenarios: Appearance
 
 ```java
   public void setup() {
     frame = new InteractiveFrame(scene, createShape(SPHERE, 40));
   }
 ```
+
+N:
+
+This simple code creates a pickable fully interactive sphere
 
 V:
 
@@ -640,10 +653,14 @@ V:
   }
 ```
 
+N:
+
+Fully interactive _arbitrary_ graphics procedures, like the one in this code, require no inheritance
+
 V:
 
 ## Proscene3
-### Envisaged interactive scenarios: Custom Callback Routines
+### Envisaged interactive scenarios: Actions
 
 ```java
   public void setup() {
@@ -651,10 +668,14 @@ V:
   }
 ```
 
+N:
+
+Binding a _default_ motion action (```translate```) is as simple as this code
+
 V:
 
 ## Proscene3
-### Envisaged interactive scenarios: Custom Callback Routines
+### Envisaged interactive scenarios: Custom Actions
 
 ```java
   public void setup() {
@@ -666,27 +687,38 @@ V:
   }
 ```
 
+N:
+
+Binding a _custom_ motion action (```translate```), like this code, require no inheritance
+
 V:
 
 ## Proscene3
 ### Envisaged interactive scenarios: MultiTouch Agent
 #### Demo
 
-<video controls data-autoplay src="vid/android.webm"></video>
+<video controls data-autoplay loop src="vid/android.mp4"></video>
 
 N:
 
-* Gestures: key: is to classify, e.g., machine learning techniques
-* DOF3 & DOF6 Default callback routines (any DOFs up till DOF6)
+Currently being part of M. Sc. by Victor Forero
+* Gestures recognization is key
+* (Event though it already works) Future work includes using machine learning techniques to improve it
+* Support up till DOF6 actions
 
 V:
 
 ## Proscene3: Conclusions
 
 <li class="fragment"> Target audience: that of [Processing](https://processing.org/)
-<li class="fragment"> Multi-language (java + android + js) = Java-based implementation + single-threaded + No-dependencies
-<li class="fragment"> Single and multi-threaded timers
-<li class="fragment"> Those of Dandelion & BIAS, but already pluged in into Processing
+<li class="fragment"> Multi-language
+<li class="fragment"> Those of Dandelion & BIAS
+
+N:
+
+* ... i.e., visual artists & designers and hobbyists where simplicity is _key_
+* ... java + android + js (but also 3rd party python and ruby ports are known to as)
+* ... but already pluged in into Processing
 
 H:
 
@@ -748,7 +780,7 @@ V:
 ## Demo: Deformation 2d & 3D
 [2D](https://github.com/sechaparroc/Deformation) and [3D](https://github.com/sechaparroc/Deformation3D) Deformation
 
-<video controls data-autoplay src="vid/deformation.mp4"></video>
+<video controls data-autoplay loop src="vid/deformation.mp4"></video>
 
 V:
 ## Demo: Deformation 2d & 3D
@@ -796,7 +828,7 @@ Is a typical model used in Kinematics. A Bone is related to a Joint that provide
 V:
 ## Demo: Forward Kinematics 
 Hierarchical Kinematic Model [2D](https://github.com/sechaparroc/Kinematics-Laplacian) and [3D](https://github.com/sechaparroc/Kinematics-Laplacian-3D).
-<video controls data-autoplay src="vid/kinematics.mp4"></video>
+<video controls data-autoplay loop src="vid/kinematics.mp4"></video>
 
 V:
 ## Demo: Forward Kinematics 
@@ -830,7 +862,7 @@ V:
 ## Demo: Inverse Kinematics 
 Kinematics [2D](https://github.com/sechaparroc/Kinematics-Laplacian) and [3D](https://github.com/sechaparroc/Kinematics-Laplacian-3D).
 
-<video controls data-autoplay src="vid/DLS_3D.mp4"></video>
+<video controls data-autoplay loop src="vid/DLS_3D.mp4"></video>
 
 V:
 
@@ -845,8 +877,7 @@ V:
 
 ## Demo: Artificial Life Aquarium
 
-<video controls data-autoplay src="vid/Aquarium.mp4"></video>
-
+<video controls data-autoplay loop src="vid/Aquarium.mp4"></video>
 
 H:
 
@@ -854,7 +885,7 @@ H:
 ### Roadmap
 
 <li class="fragment"> Short term: Release _Proscene3_ -> JS and Android port
-<li class="fragment"> February 2017: Release of the curse materials: software + documentation
+<li class="fragment"> February 2017: Release of the course materials
 
 V:
 
@@ -864,6 +895,10 @@ V:
 <li class="fragment"> Use the library
 <li class="fragment"> Adapt/extend the funcitonality 
 <li class="fragment"> Report experiences at the [Processing forum](https://forum.processing.org/two/) using the *proscene* tag
+
+V:
+
+Than you!
 
 N:
 
