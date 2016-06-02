@@ -670,43 +670,14 @@ V:
 
 ## Proscene3
 ### Envisaged interactive scenarios: MultiTouch Agent
-#### DOF6 Gestures:
-
-```java
-  DRAG_ONE_ID
-  DRAG_TWO_ID
-  DRAG_THREE_ID
-  TURN_TWO_ID
-  TURN_THREE_ID
-  PINCH_TWO_ID
-  PINCH_THREE_ID
-  OPPOSABLE_THREE_ID
-```
-//TODO: define DRAG/TURN/PINCH and OPPOSABLE using figures!
-
-V:
-
-## Proscene3
-### Envisaged interactive scenarios: MultiTouch Agent
-#### DOF3 & DOF6 Default callback routines
-
-```java
-  hinge
-  translateRotateXYZ
-  translateXYZ
-  rotateXYZ
-```
-
-N:
-Apart from DOF1 and DOF2 default callback routines
-
-V:
-
-## Proscene3
-### Envisaged interactive scenarios: MultiTouch Agent
 #### Demo
 
-//TODO add a video here highlighting in text the above callback routines!
+<video controls data-autoplay src="vid/android.webm"></video>
+
+N:
+
+* Gestures: key: is to classify, e.g., machine learning techniques
+* DOF3 & DOF6 Default callback routines (any DOFs up till DOF6)
 
 V:
 
@@ -735,7 +706,6 @@ V:
     <figcaption>Flow</figcaption>
 </figure>
 
-
 V:
 
 ## Demo: Deformation 2d & 3D
@@ -761,7 +731,6 @@ V:
     <figcaption>Control Points</figcaption>
 </figure>
 
-
 A transformation (B) is related to a given point (A)
 
 V:
@@ -773,10 +742,7 @@ V:
     <figcaption>Bounding Body</figcaption>
 </figure>
 
-
 A deformation performed to a regular polygon is applied to the input object
-
-
 
 V:
 ## Demo: Deformation 2d & 3D
@@ -784,33 +750,30 @@ V:
 
 <video controls data-autoplay src="vid/deformation.mp4"></video>
 
-
-
-
 V:
 ## Demo: Deformation 2d & 3D
 ### Related Papers
+
 <li class="fragment"> Schaefer S, McPhaill T, Warren J. [Image Deformation Using Moving Least Squares](http://faculty.cs.tamu.edu/schaefer/research/mls.pdf)
 <li class="fragment"> Sorkine O, Cohen D, Lipman Y, Alexa M, Rossl C, Seidel H. [Laplacian Surface Editing](http://www.cs.berkeley.edu/~jrs/meshpapers/SCOLARS.pdf).
-
 
 V:
 
 ## Demo: Forward Kinematics 
+
 <figure>
     <img height='500' src='fig/kinematics_1.png' />
     <figcaption>Flow</figcaption>
 </figure>
 
-
 V:
 
 ## Demo: Forward Kinematics 
+
 <figure>
     <img height='500' src='fig/interactive_tool.png' />
     <figcaption>Interactive Tool</figcaption>
 </figure>
-
 
 V:
 
