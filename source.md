@@ -434,7 +434,7 @@ N:
 
 * ... machine learning developers
 * ... can easily be plugged into any third-party visual computing application
-* ... java + android + js (but also 3rd party python and ruby ports are known to as)
+* ... java + android + js (but also 3rd party python and ruby ports are known to us)
 * ... ranging simple to very complex setups, even allowing concurrency of input events on application objects
 * ... such as when adding new hardware and/or user-defined actions
 
@@ -524,14 +524,12 @@ V:
 ## Dandelion
 ### KeyFrameInterpolator
 
-[Catmull Rom splines](https://en.wikipedia.org/wiki/Cubic_Hermite_spline#Catmull.E2.80.93Rom_spline) key frames
-
 <video controls data-autoplay loop src="vid/just_cause.mp4"></video>
-<!-- .element: class="fragment" data-fragment-index="1"-->
 
 N:
 
-Point cloud visualization of 11' player impact events in the videogame, Just Cause 2. Developed in collaboration with [Square Enix](https://www.youtube.com/watch?v=hEoxaGkNcrg&feature=player_embedded#at=19)
+* [Catmull Rom splines](https://en.wikipedia.org/wiki/Cubic_Hermite_spline#Catmull.E2.80.93Rom_spline) key frames
+* Point cloud visualization of 11' player impact events in the videogame, Just Cause 2. Developed in collaboration with [Square Enix](https://www.youtube.com/watch?v=hEoxaGkNcrg&feature=player_embedded#at=19)
 
 V:
 
@@ -575,7 +573,7 @@ V:
 N:
 
 * ... programmers which want to build upon a (simple and coherent) scenegraph foundation
-* ... java + android + js (but also 3rd party python and ruby ports are known to as)
+* ... java + android + js (but also 3rd party python and ruby ports are known to us)
 * ... e.g., it can easily be plugged into any third-party visual computing application
 
 H:
@@ -717,7 +715,7 @@ V:
 N:
 
 * ... i.e., visual artists & designers and hobbyists where simplicity is _key_
-* ... java + android + js (but also 3rd party python and ruby ports are known to as)
+* ... java + android + js (but also 3rd party python and ruby ports are known to us)
 * ... but already pluged in into Processing
 
 H:
