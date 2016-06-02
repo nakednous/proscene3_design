@@ -728,6 +728,12 @@ H:
 <li class="fragment"> Inverse Kinematics
 <li class="fragment"> Artificial Life Aquarium
 
+N:
+
+* Proscene give as advantage when we developed int. apps
+* use de modules BIAS + Dandelion for that puspose
+* Aquarium: uses concepts of the previous applications
+
 V:
 
 ## Demo: Deformation 2d & 3D
@@ -736,12 +742,22 @@ V:
     <figcaption>Flow</figcaption>
 </figure>
 
+N:
+ALL int. app follows the next flow:
+- Input: basic pose
+- User interaction: Tell the app how to identify the actions that the user perform with the interactive tools.
+- Output: some changes in the shape of the input
+
 V:
 
 ## Demo: Deformation 2d & 3D
 ### Interactive Tools
-<li class="fragment"> There are required  tools with which the user could interact that allows to relate some action with a specific region of the image/mesh input (BIAS).
-<li class="fragment"> We extend the class interactive Frame (Dandelion) to associate to them information about the image/mesh.
+<li class="fragment"> There are required  tools with which the user could interact and that allows to relate some action with a specific region of the image/mesh input.
+<li class="fragment"> We extend the class interactive Frame to associate to them information about the image/mesh.
+
+N:
+- Higher level layer: Interactive frame modifies another
+- Dandelion Local coordinates & BIAS for handling objects that can be “grabbed”.
 
 V:
 
@@ -751,6 +767,13 @@ V:
     <img height='500' src='fig/interactive_tool.png' />
     <figcaption>Interactive Tool</figcaption>
 </figure>
+
+N:
+* For the kind of algorithms we're showing,it seems that the same metaphor needs to be implemented, we call this interactive tools
+* Interactive frame related with another one (mesh) that enable us to modify some information.
+* Get information: Based on distance
+* Execute some kind of action that modifies that information 
+
 
 V:
 
@@ -763,6 +786,15 @@ V:
 
 A transformation (B) is related to a given point (A)
 
+N:
+
+* what is a Control Point?: Basic Interactive tool: relates a given point some transformation
+* A transformation  (e.g Rotation, translation)  (B) is related to a given point ( A) in the space (defined by a local coordinate system).
+* If the origin (A) is grabbed a motion action is applied to the origin and the image points.
+* If the image (B) is grabbed the transformation is applied just to the image point (B) (Local coordinate space)
+
+
+
 V:
 
 ## Demo: Deformation 2d & 3D
@@ -774,11 +806,24 @@ V:
 
 A deformation performed to a regular polygon is applied to the input object
 
+N:
+* Usage of an auxiliary scene to deform a regular polygon. 
+* The given polygon wraps the object (Interactive Frame) to the deform.
+* DOF 1 event: Changes the number of vertices.
+* Motion events: translates the nearest vertex to the cursor, rotates the bounding body.
+
 V:
 ## Demo: Deformation 2d & 3D
 [2D](https://github.com/sechaparroc/Deformation) and [3D](https://github.com/sechaparroc/Deformation3D) Deformation
 
-<video controls data-autoplay loop src="vid/deformation.mp4"></video>
+<video controls data-autoplay src="vid/deformation.mp4"></video>
+
+N: 
+* Locate the control points
+* Asciate near vertices to the interactive tool
+* kind of predefined control points based on bounding box.
+* Dof 1 to define number edges of the polygon
+
 
 V:
 ## Demo: Deformation 2d & 3D
@@ -786,6 +831,14 @@ V:
 
 <li class="fragment"> Schaefer S, McPhaill T, Warren J. [Image Deformation Using Moving Least Squares](http://faculty.cs.tamu.edu/schaefer/research/mls.pdf)
 <li class="fragment"> Sorkine O, Cohen D, Lipman Y, Alexa M, Rossl C, Seidel H. [Laplacian Surface Editing](http://www.cs.berkeley.edu/~jrs/meshpapers/SCOLARS.pdf).
+
+N:
+
+* Free Form DEformation: don't take into account the structure of the mesh
+* defining the new position based on the weight that each control point gives.
+* Laplacian coordinates, local space, gives information about the relationship btwn vertices
+* Rigid deformations, no shearing.
+
 
 V:
 
@@ -796,6 +849,11 @@ V:
     <figcaption>Flow</figcaption>
 </figure>
 
+N:
+
+* Basically the same flow that we've seen in the previous instance, but the user uses other kind of interaction tool
+* Skeleton that's a common way of representation
+
 V:
 
 ## Demo: Forward Kinematics 
@@ -805,6 +863,10 @@ V:
     <figcaption>Interactive Tool</figcaption>
 </figure>
 
+N: 
+* again a tool has to be related with an interactive frame and basically a method to get some information, and another
+one to set the information obtained, based on the actions of the user
+
 V:
 
 ## Demo: Forward Kinematics 
@@ -812,6 +874,9 @@ V:
     <img height='300' src='fig/kinematics_2.png' />
     <figcaption>Hierarchical Kinematic Model</figcaption>
 </figure>
+
+N:
+* Is a typical model used in Kinematics. A Bone is related to a Joint that provides DOF 3.
 
 V:
 
@@ -823,10 +888,17 @@ V:
 
 Is a typical model used in Kinematics. A Bone is related to a Joint that provides DOF 3. (local coordinates and hierarchy) 
 
+N:
+
+* Usage of local coordinates and hierarchy (interactive Frames) 
+* Overrided ClickEvent to add or delete Bones.
+* DOF 1 events overrided for other purposes: (Weight, Width, enable/disable  end effector).
+
+
 V:
 ## Demo: Forward Kinematics 
 Hierarchical Kinematic Model [2D](https://github.com/sechaparroc/Kinematics-Laplacian) and [3D](https://github.com/sechaparroc/Kinematics-Laplacian-3D).
-<video controls data-autoplay loop src="vid/kinematics.mp4"></video>
+<video controls data-autoplay src="vid/kinematics.mp4"></video>
 
 V:
 ## Demo: Forward Kinematics 
@@ -834,6 +906,13 @@ V:
 <li class="fragment"> Buss S. [Introduction to Inverse Kinematics](http://www.math.ucsd.edu/~sbuss/ResearchWeb/ikmethods/iksurvey.pdf)
 <li class="fragment"> Sorkine O, Cohen D, Lipman Y, Alexa M, Rossl C, Seidel H. [Laplacian Surface Editing](http://www.cs.berkeley.edu/~jrs/meshpapers/SCOLARS.pdf)
 <li class="fragment"> University Of California, Computer Animation Course. [Skinning](http://graphics.ucsd.edu/courses/cse169_w05/3-Skin.htm)
+
+N:
+* Hiearchical model 1st paper
+* Its required to define the way in which the skeleton will modify the mesh
+* Take adv of rigid transformation and uses the laplacian.
+* Skinning based on distance bone, vertex and give a weight to each bone.
+
 
 
 V:
@@ -843,6 +922,15 @@ V:
     <img height='500' src='fig/ikinematics_1.png' />
     <figcaption>Flow</figcaption>
 </figure>
+
+N:
+* Kinematics is the study of how things move, it
+describes the motion of a hierarchical skeleton
+structure
+* input is given, kinematic chain
+* User stablish final position of the end effectors
+* Get values of the joints based on future position desired
+
 
 V:
 
@@ -854,13 +942,17 @@ V:
 
 It is required to relate actions for setting some parameters with BIAS events.
 
+N: 
+
+* our goal is to compute values of the joints that will cause the
+end effector to reach some desired state
 
 V:
 
 ## Demo: Inverse Kinematics 
 Kinematics [2D](https://github.com/sechaparroc/Kinematics-Laplacian) and [3D](https://github.com/sechaparroc/Kinematics-Laplacian-3D).
 
-<video controls data-autoplay loop src="vid/DLS_3D.mp4"></video>
+<video controls data-autoplay src="vid/DLS_3D.mp4"></video>
 
 V:
 
@@ -870,12 +962,22 @@ V:
 <li class="fragment"> Buss S, Kim J. [Selectively Damped Least Squares for Inverse Kinematics](http://www.math.ucsd.edu/~sbuss/ResearchWeb/ikmethods/SdlsPaper.pdf)
 <li class="fragment"> Meredith M, Maddock S. [Weighted Real-Time Inverse Kinematics](https://staffwww.dcs.shef.ac.uk/people/S.Maddock/publications/MeredithMaddock2004_GDTW.pdf)
 
+N:
+* Minimizes the iterative way error btwn the actual position and the desired one, take into account a damped constant for cases in with a singularity is possble.
+* Apply a weight to each bone with the idea to avoid the movement of bones which are heavy enought.
+
 
 V:
 
 ## Demo: Artificial Life Aquarium
 
-<video controls data-autoplay loop src="vid/Aquarium.mp4"></video>
+<video controls data-autoplay src="vid/Aquarium.mp4"></video>
+
+
+N:
+* Aquarium: use of AI concept segregation model for forming groups fish schools, diffusion reaction model for the construction of the textures, to be enhanced, Raynolds model based on separation, alingment and cohesion, L-sistems construction of pretty basic trees to be improved. Lights and so on
+
+
 
 H:
 
