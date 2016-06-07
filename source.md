@@ -372,56 +372,6 @@ InputHandler ```eventTupleQueue()```.
 2. At the end of main event loop the *pI*
 method is then called on the ```inputGrabber()```
 
-V:
-
-## BIAS: Grabber Profile
-
-A [functional programming](https://en.wikipedia.org/wiki/Functional_programming) extension which parses the event in
-```grabber.performInteraction(BogusEvent event)```
-to define _Shortcut_ to _Action_ bindings
-
-```java
-@Override
-public void performInteraction(BogusEvent event) {
-    profile.handle(event);
-}
-```
-<!-- .element: class="fragment" data-fragment-index="1"-->
-
-N:
-
-1. ... to set it up just override
-the _grabber_ ```performInteraction``` method like this:
-
-V:
-
-## BIAS
-### Grabbers: Profile
-
-Profiles allow the following high-level simple dialect:
-
-```java
-grabber.setMotionBinding(LEFT, "callback_method");
-```
-<!-- .element: class="fragment" data-fragment-index="1"-->
-
-```java
-grabber.setKeyBinding('x', "callback_method");
-```
-<!-- .element: class="fragment" data-fragment-index="2"-->
-
-```java
-grabber.setKeyBinding(SHIFT, 'y', "callback_method");
-```
-<!-- .element: class="fragment" data-fragment-index="3"-->
-
-```java
-grabber.setClickBinding(RIGHT, '2', "callback_method");
-```
-<!-- .element: class="fragment" data-fragment-index="4"-->
-
-V:
-
 ## BIAS: Conclusions
 
 <li class="fragment"> Target audience: Gesture parsing programmers
@@ -600,10 +550,10 @@ V:
 ## Proscene3
 ### InteractiveFrame
 
-* _InteractiveFrame_ -> _GenericFrame_ [PShape](https://processing.org/reference/PShape.html) wrapper implementing ```checkIfGrabsInput(event)``` using a [picking buffer](http://content.gpwiki.org/index.php/OpenGL_Selection_Using_Unique_Color_IDs)
+_InteractiveFrame_: _GenericFrame_ [PShape](https://processing.org/reference/PShape.html) wrapper
 <figure>
     <img height='300' src='fig/picking_buffer.png' />
-    <figcaption>Picking buffer</figcaption>
+    <figcaption><a href="http://www.lighthouse3d.com/tutorials/opengl-selection-tutorial/">PickingBuffer</a></figcaption>
 </figure>
 
 V:
