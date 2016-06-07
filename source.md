@@ -49,13 +49,13 @@ in the simplest possible way:
 N:
 
 ... which may be evaluated by:
-* (API simplicity), that relates the set of instructions needed to accomplish a standard task
-over a given domain -> 'the less instructions the simple the API is'
-* (API flexibility), that relates as to whether or not an advanced task can be accomplished by the
-framework and if so, how.
-* (Customizability), which relates software maintenance
-and extensibility, such as when adding new hardware and/or
-a new application user-defined actions
+* (API simplicity) # of instructions needed to accomplish a standard task
+over a given domain
+* (API flexibility): whether or not an advanced task can be accomplished by the
+framework
+(usually they compete. This a relative new subject in the literature. Many to be done: metrics?)
+* (Customizability) software maintenance & extensibility
+(the former two relates the programmer, the latter the end user)
 
 V:
 
@@ -63,22 +63,23 @@ V:
 
 Universal interaction tasks:
 
- 1. Viewpoint manipulation <!-- .element: class="fragment" data-fragment-index="1"-->
+ 1. Viewpoint Manipulation <!-- .element: class="fragment" data-fragment-index="1"-->
  2. Picking & Manipulation <!-- .element: class="fragment" data-fragment-index="2"-->
- 3. Application Control <!-- .element: class="fragment" data-fragment-index="3"-->
+ 3. (Non-Std) Interaction Metaphor <!-- .element: class="fragment" data-fragment-index="3"-->
 
-"A Survey of Interaction Techniques for Interactive 3D Environments", Jankowski et al., 2013 - STAR.
-<!-- .element: class="fragment" data-fragment-index="4"-->
+<!--
+"A Survey of Interaction Techniques for Interactive 3D Environments", Jankowski et al., 2013 - STAR
+-->
 
 N:
 
-To cope with the so called three universal interaction tasks for Interactive Environments, which are:
+'Interactivity' within virtual environments can be broken down into the so called three (U.I.T.) for Interactive Environments, which are:
 
 1. Viewpoint manipulation in 3D as well as in 2D
 2. Object selection & Interaction
-3. Implementation of 'post-WIMP ((W)indows (I)cons (M)enus & (P)ointer) _interaction metaphors_
+3. Implementation of non-std _interaction metaphors_
 
-Jankowski relatively recent survey provides a good starting point
+Let's see some examples:
 
 V:
 
@@ -105,7 +106,7 @@ This video displays part of a recent usability comparative study using non-std i
 V:
 
 ## Goal: Interactivity
-### Picking & Manipulation -> select & interaction
+### Picking & Manipulation
 
 <video controls data-autoplay loop src="vid/cut.mp4"></video>
 
@@ -116,7 +117,7 @@ This video shows an excerpt of an audio reactive multitouch tabletop screen app,
 V:
 
 ## Goal: Interactivity
-### Application Control -> 'post-'WIMP interaction metaphors
+### Non-std interaction metaphors
 
 <video controls data-autoplay loop src="vid/app_ctrl.ogv"></video>
 
@@ -182,7 +183,10 @@ V:
 
 N:
 
-Open up a communication channel between user gestures and grabber objects
+Open up a communication channel between user gestures and grabber objects.
+That channel should include (U.I.T.):
+1. Picking & Manipulation
+2. View point manipulation (in the case the grabber is the eye)
 
 V:
 
@@ -259,12 +263,12 @@ V:
 ## BIAS: BogusEvent
 ### MultiTempi
 
-<li class="fragment"> ```fired()```: event instantiation
-<li class="fragment"> ```flushed()```: event termination
+<li class="fragment"> ```fired()``` & ```flushed()```
 <li class="fragment"> ```!fired() && !flushed()```: event execution (default state)
 
 N:
 
+We have two event tempi: initialization & termination. The third (exection) can be infered
 Example:
 * ```fired()``` -> mouse pressed
 * ```flushed()``` -> mouse released
@@ -372,10 +376,12 @@ InputHandler ```eventTupleQueue()```.
 2. At the end of main event loop the *pI*
 method is then called on the ```inputGrabber()```
 
+V:
+
 ## BIAS: Conclusions
 
-<li class="fragment"> Target audience: Gesture parsing programmers
-<li class="fragment"> Lightweight Java-based implementation + Single-threaded + No-dependencies
+<li class="fragment"> Target audience: I/O developers
+<li class="fragment"> Lightweight Java-based implementation
 <li class="fragment"> Multi-language support
 <li class="fragment"> A wide scope of interactive applications
 <li class="fragment"> Software maintenance and extensibility
@@ -383,7 +389,7 @@ method is then called on the ```inputGrabber()```
 N:
 
 * ... machine learning developers
-* ... can easily be plugged into any third-party visual computing application
+* ... (single-threaded + No-dependencies) can easily be plugged into any third-party visual computing application
 * ... java + android + js (but also 3rd party python and ruby ports are known to us)
 * ... ranging simple to very complex setups, even allowing concurrency of input events on application objects
 * ... such as when adding new hardware and/or user-defined actions
@@ -508,7 +514,7 @@ V:
 High-level scene handler which manages:
 
 <li class="fragment"> Visual hints
-<li class="fragment"> Traversal algorithm: ```for (GenericFrame frame : leadingFrames()) visitFrame(frame)```
+<li class="fragment"> Traversal algorithm
 <li class="fragment"> Frame-hierarchy
 <li class="fragment"> BIAS agents
 
@@ -775,20 +781,21 @@ N:
 * Dof 1 to define number edges of the polygon
 
 
-V:
+<!--
+Vertival:
 ## Demo: Deformation 2d & 3D
 ### Related Papers
 
 <li class="fragment"> Schaefer S, McPhaill T, Warren J. [Image Deformation Using Moving Least Squares](http://faculty.cs.tamu.edu/schaefer/research/mls.pdf)
 <li class="fragment"> Sorkine O, Cohen D, Lipman Y, Alexa M, Rossl C, Seidel H. [Laplacian Surface Editing](http://www.cs.berkeley.edu/~jrs/meshpapers/SCOLARS.pdf).
 
-N:
+Notes:
 
 * Free Form DEformation: don't take into account the structure of the mesh
 * defining the new position based on the weight that each control point gives.
 * Laplacian coordinates, local space, gives information about the relationship btwn vertices
 * Rigid deformations, no shearing.
-
+-->
 
 V:
 
@@ -850,20 +857,21 @@ V:
 Hierarchical Kinematic Model [2D](https://github.com/sechaparroc/Kinematics-Laplacian) and [3D](https://github.com/sechaparroc/Kinematics-Laplacian-3D).
 <video controls data-autoplay src="vid/kinematics.mp4"></video>
 
-V:
+<!--
+Vertical:
 ## Demo: Forward Kinematics 
 ### Related Papers
-<li class="fragment"> Buss S. [Introduction to Inverse Kinematics](http://www.math.ucsd.edu/~sbuss/ResearchWeb/ikmethods/iksurvey.pdf)
-<li class="fragment"> Sorkine O, Cohen D, Lipman Y, Alexa M, Rossl C, Seidel H. [Laplacian Surface Editing](http://www.cs.berkeley.edu/~jrs/meshpapers/SCOLARS.pdf)
-<li class="fragment"> University Of California, Computer Animation Course. [Skinning](http://graphics.ucsd.edu/courses/cse169_w05/3-Skin.htm)
+Buss S. [Introduction to Inverse Kinematics](http://www.math.ucsd.edu/~sbuss/ResearchWeb/ikmethods/iksurvey.pdf)
+Sorkine O, Cohen D, Lipman Y, Alexa M, Rossl C, Seidel H. [Laplacian Surface Editing](http://www.cs.berkeley.edu/~jrs/meshpapers/SCOLARS.pdf)
+University Of California, Computer Animation Course. [Skinning](http://graphics.ucsd.edu/courses/cse169_w05/3-Skin.htm)
 
-N:
+
+Notes:
 * Hiearchical model 1st paper
 * Its required to define the way in which the skeleton will modify the mesh
 * Take adv of rigid transformation and uses the laplacian.
 * Skinning based on distance bone, vertex and give a weight to each bone.
-
-
+-->
 
 V:
 
@@ -904,7 +912,8 @@ Kinematics [2D](https://github.com/sechaparroc/Kinematics-Laplacian) and [3D](ht
 
 <video controls data-autoplay src="vid/DLS_3D.mp4"></video>
 
-V:
+<!--
+Vertical:
 
 ## Demo: Inverse Kinematics 
 ### Related Papers
@@ -912,10 +921,10 @@ V:
 <li class="fragment"> Buss S, Kim J. [Selectively Damped Least Squares for Inverse Kinematics](http://www.math.ucsd.edu/~sbuss/ResearchWeb/ikmethods/SdlsPaper.pdf)
 <li class="fragment"> Meredith M, Maddock S. [Weighted Real-Time Inverse Kinematics](https://staffwww.dcs.shef.ac.uk/people/S.Maddock/publications/MeredithMaddock2004_GDTW.pdf)
 
-N:
+Notes:
 * Minimizes the iterative way error btwn the actual position and the desired one, take into account a damped constant for cases in with a singularity is possble.
 * Apply a weight to each bone with the idea to avoid the movement of bones which are heavy enought.
-
+-->
 
 V:
 
@@ -923,11 +932,8 @@ V:
 
 <video controls data-autoplay src="vid/Aquarium.mp4"></video>
 
-
 N:
 * Aquarium: use of AI concept segregation model for forming groups fish schools, diffusion reaction model for the construction of the textures, to be enhanced, Raynolds model based on separation, alingment and cohesion, L-sistems construction of pretty basic trees to be improved. Lights and so on
-
-
 
 H:
 
