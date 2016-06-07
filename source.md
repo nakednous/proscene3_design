@@ -49,13 +49,12 @@ in the simplest possible way:
 N:
 
 ... which may be evaluated by:
-* (API simplicity) # of instructions needed to accomplish a standard task
+* No. of instructions needed to accomplish a standard task
 over a given domain
-* (API flexibility): whether or not an advanced task can be accomplished by the
+* whether or not an advanced task can be accomplished by the
 framework
-(usually they compete. This a relative new subject in the literature. Many to be done: metrics?)
-* (Customizability) software maintenance & extensibility
-(the former two relates the programmer, the latter the end user)
+(key: find a good trade-off between those two, because usually they tend to compete)
+* software maintenance & extensibility
 
 V:
 
@@ -151,7 +150,7 @@ H:
 
 N:
 
-We employ an 'onion architecture' which controls coupling: all code can depend on core layers (but no the other way around). Those layers are implemented as *git subtrees*
+For the design we just used an 'onion architecture' which controls coupling: all code can depend on core layers (but no the other way around). Those layers are implemented as *git subtrees*
 
 H:
 
@@ -178,15 +177,14 @@ V:
 
 <figure>
     <img height='300' src='fig/arch_5.png' />
-    <figcaption>Communication channel</figcaption>
+    <figcaption>Communication pipeline</figcaption>
 </figure>
 
 N:
 
-Open up a communication channel between user gestures and grabber objects.
-That channel should include (U.I.T.):
-1. Picking & Manipulation
-2. View point manipulation (in the case the grabber is the eye)
+BIAS goal is to open up a communication pipeline between the user and grabber objects.
+Messages sent through this pipeline form the basis to implementing (U.I.T.)
+as we'll see in a minute
 
 V:
 
@@ -199,7 +197,9 @@ V:
 
 N:
 
-Such as ... (B)rain (C)omputer (I)nterface or any (H)uman (Interface) (D)evice
+User gestures are gathered from any input source such as
+... (B)rain (C)omputer (I)nterface or any (H)uman (Interface) (D)evice.
+What have you!
 
 V:
 
@@ -212,7 +212,8 @@ V:
 
 N:
 
-Grabbers are user-space objects possibly having a visual representation
+Grabbers are interactive user-space objects possibly having a visual representation
+(an exception being the point-of-view or 'eye')
 
 V:
 
@@ -227,7 +228,7 @@ public interface Grabber {
 
 N:
 
-Grabbers have a very simple specification:
+... they have a very simple specification:
 1. Defines the rules to set the application object as an input grabber
 2. Defines how the application object should behave
 
@@ -242,9 +243,9 @@ V:
 
 N:
 
-Input sources are represented by so called bogus events. An event is bogus in that it is a high-level (soft) event which should be reduced from a low-level event
+... messages sent through this pipeline are called bogus events. An event is bogus in that it is a high-level (soft) event that should be reduced from a low-level event
 
-Lets see some bogus events features...
+Lets see some bogus events mighty features...
 
 V:
 
@@ -255,7 +256,7 @@ V:
 
 N:
 
-Example:
+... they have shortcuts which are gesture identifiers. Example:
 * the mouse button + modifier mask when a dragging gesture is taking place
 
 V:
@@ -268,11 +269,13 @@ V:
 
 N:
 
-We have two event tempi: initialization & termination. The third (exection) can be infered
+* ... they have two states: initialization & termination
+* ... and a the third (execution) which can be infered from those two
+
 Example:
-* ```fired()``` -> mouse pressed
-* ```flushed()``` -> mouse released
-* ```!fired() && !flushed()``` -> mouse dragged
+* ```fired()``` : mouse pressed
+* ```flushed()``` : mouse released
+* ```!fired() && !flushed()``` : mouse dragged
 
 V:
 
@@ -294,6 +297,7 @@ _BogusEvent_ instances are of the following types:
    
 N:
 
+bogus-events are of the following types:
 * ... defining a single key stroke; or, a combo key stroke: single key stroke + modifier key
 * ... defining a "tap" event
 * ... defining the app kinematics & which are characterized by DOFs
@@ -310,7 +314,8 @@ V:
 
 N:
 
-An agent is a BogusEvent reduction object. Its goal is to collect and reduce input into a _BogusEvent_
+The object responsible to parse user gestures is called 'Agent'.
+Its goal is to collect and reduce input into a _BogusEvent_
 
 V:
 
@@ -339,8 +344,8 @@ V:
 
 N:
 
-* The *uTG* _agent_ call is related to the *cIGI* _grabber_ call
-* The *h* _agent_ call is related to the *pI* _grabber_ call
+* The _agent_ *uTG* call is related to the *cIGI* _grabber_ call
+* The _agent_ *h* call is related to the *pI* _grabber_ call
 
 lets see how
 
